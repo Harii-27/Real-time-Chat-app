@@ -230,30 +230,20 @@ function App() {
 
 
                           <div className="metrices">
-                          <h3>{greeting}</h3>
-                          <h4>
-            {currentDateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-          </h4>
+           
 
                           <div className="details">
+
+          <h3 className='greeting'>{greeting}</h3>
+                          <h3 className='current-time'>
+            {currentDateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+          </h3>
                            
                             <div className="icon-and-temp">
                           
-                              <h1>{citySearchData.main.temp}°</h1>
+                              <h3>{citySearchData.main.temp}°</h3>
                             </div>
-                            <h4 className="description">
-                              {citySearchData.weather[0].description}
-                            </h4>
-
-                            <div className="key-value-box">
-                              <div className="key">
-                                <Icon icon={droplet} size={20} className="icon" />
-                               
-                              </div>
-                              <div className="value">
-                                <span>{citySearchData.main.humidity}%</span>
-                              </div>
-                            </div>
+                        
 
                             <div className="key-value-box">
                               <div className="key">
@@ -264,14 +254,25 @@ function App() {
                                 <span>{citySearchData.wind.speed}kph</span>
                               </div>
                             </div>
-                            </div>
 
-                              <h4>
+                            <div className="key-value-box">
+                              <div className="key">
+                                <Icon icon={droplet} size={20} className="icon" />
+                               
+                              </div>
+                              <div className="value">
+                                <span>{citySearchData.main.humidity}%</span>
+                              </div>
+                            </div> 
+                            <h4>
                               Feels like {citySearchData.main.feels_like}°
                             </h4>
+                            <h3 className="condition">
+                              {citySearchData.weather[0].description}
+                            </h3>       
 
-                                     {/* Hourly forecast data */}
-                      <h4 className="hourly-forecast-heading">Hourly Forecast</h4>
+                              {/* Hourly forecast data */}
+                      <h3 className="hourly-forecast-heading">Hourly Forecast</h3>
                       {hourlyForecast && hourlyForecast.length > 0 ? (
                         <div className="hourly-forecasts-container">
                           {hourlyForecast.map((data, index) => {
@@ -295,7 +296,12 @@ function App() {
                       ) : (
                         <div>No Hourly Forecast Data Available</div>
                       )}
-                         
+                                    
+                            </div>
+
+                          
+
+                                   
                      </div>
                         </div>
                       )}

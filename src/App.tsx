@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Icon from "react-icons-kit";
 import { search } from "react-icons-kit/feather/search";
@@ -13,14 +13,28 @@ import { SphereSpinner } from "react-spinners-kit";
 const hostName = "https://api.openweathermap.org";
 const appId = "f49653e026f6bd0c4262ce24fd7466ae";
 
+// Define interfaces for the weather and forecast data
+type WeatherData = {
+  name: string;
+  weather: { description: string; icon: string }[];
+  main: { temp: number; feels_like: number; temp_max: number; temp_min: number; humidity: number; pressure: number };
+  wind: { speed: number };
+  coord: { lat: number; lon: number };
+}
+interface Forecast {
+  dt_txt: string;
+  weather: { icon: string; description: string }[];
+  main: { temp_max: number; temp_min: number };
+}
+
 function App() {
   // Local state
-  const [city, setCity] = useState("chennai");
-  const [unit, setUnit] = useState("metric"); // metric = C and imperial = F
-  const [loadings, setLoadings] = useState(true);
-  const [citySearchData, setCitySearchData] = useState(null);
-  const [forecastData, setForecastData] = useState(null);
-  const [forecastError, setForecastError] = useState(null);
+  const [city, setCity] = useState<string>("chennai");
+  const [unit, setUnit] = useState<string>("metric"); // metric = C and imperial = F
+  const [loadings, setLoadings] = useState<boolean>(true);
+  const [citySearchData, setCitySearchData] = useState<WeatherData | { error: string } | null>(null);
+  const [forecastData, setForecastData] = useState<{ list: Forecast[] } | null>(null);
+  const [forecastError, setForecastError] = useState<string | null>(null);
 
   // Fetch city weather data
   const fetchCityData = async () => {
@@ -30,14 +44,14 @@ function App() {
       );
       setCitySearchData(response.data);
       return response.data.coord;
-    } catch (error) {
+    } catch (error: any) {
       setCitySearchData({ error: error.response.data.message });
       return null;
     }
   };
 
   // Fetch 5-day forecast data
-  const fetchForecastData = async (coords) => {
+  const fetchForecastData = async (coords: { lat: number; lon: number }) => {
     if (!coords) return;
     try {
       const response = await axios.get(
@@ -45,7 +59,7 @@ function App() {
       );
       setForecastData(response.data);
       setForecastError(null);
-    } catch (error) {
+    } catch (error: any) {
       setForecastError(error.response.data.message);
     }
   };
@@ -71,26 +85,23 @@ function App() {
   };
 
   // Handle city search
-  const handleCitySearch = (e) => {
+  const handleCitySearch = (e: React.FormEvent) => {
     e.preventDefault();
     setLoadings(true);
     fetchData();
   };
 
   // Filter forecast data based on the time of the first object
-  const filterForecastByFirstObjTime = (forecastData) => {
-    if (!forecastData) {
-      return [];
-    }
-
-    const firstObjTime = forecastData[0].dt_txt.split(" ")[1];
-    return forecastData.filter((data) => data.dt_txt.endsWith(firstObjTime));
+  const filterForecastByFirstObjTime = (forecastData: any[]) => {
+    if (!forecastData || forecastData.length === 0) return [];
+    const firstObjTime = forecastData[0]?.dt_txt?.split(" ")[1];
+    if (!firstObjTime) return [];
+    return forecastData.filter((data) => data.dt_txt?.endsWith(firstObjTime));
   };
 
   // Filter data for the next 4 hours
   const hourlyForecast = forecastData?.list?.slice(0, 4);
-
-  const filteredForecast = filterForecastByFirstObjTime(forecastData?.list);
+  const filteredForecast = filterForecastByFirstObjTime(forecastData?.list || []);
 
   return (
     <div className="background">
@@ -131,7 +142,7 @@ function App() {
             </div>
           ) : (
             <>
-              {citySearchData && citySearchData.error ? (
+              {citySearchData && 'error' in citySearchData ? (
                 <div className="error-msg">{citySearchData.error}</div>
               ) : (
                 <>
@@ -139,7 +150,7 @@ function App() {
                     <div className="error-msg">{forecastError}</div>
                   ) : (
                     <>
-                      {citySearchData && citySearchData.name && (
+                      {citySearchData && 'name' in citySearchData && (
                         <div className="weather-details-container">
                           <div className="details">
                             <h4 className="city-name">{citySearchData.name}</h4>
@@ -148,7 +159,7 @@ function App() {
                                 src={`https://openweathermap.org/img/wn/${citySearchData.weather[0].icon}@2x.png`}
                                 alt="icon"
                               />
-                              <h1>{citySearchData.main.temp}&deg;</h1>
+                              <h1>{citySearchData.main.temp}°</h1>
                             </div>
                             <h4 className="description">
                               {citySearchData.weather[0].description}
@@ -157,19 +168,19 @@ function App() {
 
                           <div className="metrices">
                             <h4>
-                              Feels like {citySearchData.main.feels_like}&deg;
+                              Feels like {citySearchData.main.feels_like}°
                             </h4>
                             <div className="key-value-box">
                               <div className="key">
                                 <Icon icon={arrowUp} size={20} className="icon" />
                                 <span className="value">
-                                  {citySearchData.main.temp_max}&deg;
+                                  {citySearchData.main.temp_max}°
                                 </span>
                               </div>
                               <div className="key">
                                 <Icon icon={arrowDown} size={20} className="icon" />
                                 <span className="value">
-                                  {citySearchData.main.temp_min}&deg;
+                                  {citySearchData.main.temp_min}°
                                 </span>
                               </div>
                             </div>
@@ -203,6 +214,30 @@ function App() {
                           </div>
                         </div>
                       )}
+                      {/* Hourly forecast data */}
+                      <h4 className="hourly-forecast-heading">Hourly Forecast (Next 4 Hours)</h4>
+                      {hourlyForecast && hourlyForecast.length > 0 ? (
+                        <div className="hourly-forecast-container">
+                          {hourlyForecast.map((data, index) => {
+                            const hour = new Date(data.dt_txt).getHours();
+                            return (
+                              <div className="hourly-forecast-box" key={index}>
+                                <h5>{hour}:00</h5>
+                                <img
+                                  src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
+                                  alt="icon"
+                                />
+                                <h5>{data.weather[0].description}</h5>
+                                <h5 className="min-max-temp">
+                                  {data.main.temp_max}° / {data.main.temp_min}°
+                                </h5>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div>No Hourly Forecast Data Available</div>
+                      )}
                       {/* Extended forecast data */}
                       <h4 className="extended-forecast-heading">Extended Forecast</h4>
                       {filteredForecast.length > 0 ? (
@@ -221,36 +256,14 @@ function App() {
                                 />
                                 <h5>{data.weather[0].description}</h5>
                                 <h5 className="min-max-temp">
-                                  {data.main.temp_max}&deg; / {data.main.temp_min}&deg;
+                                  {data.main.temp_max}° / {data.main.temp_min}°
                                 </h5>
                               </div>
                             );
                           })}
                         </div>
                       ) : (
-                        <div className="error-msg">No Data Found</div>
-                      )}
-                      {/* Hourly forecast (next 4 hours) */}
-                      <h4 className="hourly-forecast-heading">Next 4 Hours</h4>
-                      {hourlyForecast?.length > 0 ? (
-                        <div className="hourly-forecast-container">
-                          {hourlyForecast.map((data, index) => {
-                            const hour = new Date(data.dt_txt).getHours();
-                            const temp = data.main.temp;
-                            return (
-                              <div className="hourly-forecast-box" key={index}>
-                                <h5>{hour}:00</h5>
-                                <img
-                                  src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
-                                  alt="icon"
-                                />
-                                <h5>{temp}&deg;</h5>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <div className="error-msg">No Data Found</div>
+                        <div>No Extended Forecast Data Available</div>
                       )}
                     </>
                   )}
@@ -263,5 +276,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

@@ -138,7 +138,7 @@ function App() {
 
           {loadings ? (
             <div className="loader">
-              <SphereSpinner loadings={loadings} color="#2fa5ed" size={20} />
+              <SphereSpinner loading={loadings} color="#2fa5ed" size={20} />
             </div>
           ) : (
             <>
@@ -275,5 +275,4 @@ function App() {
       </div>
     </div>
   );
-}
-export default App;
+}export default App;

@@ -27,7 +27,7 @@ interface Forecast {
 function App() {
 
   const [city, setCity] = useState<string>("chennai");
-  const [unit, setUnit] = useState<string>("metric"); 
+  const [unit, setUnit] = useState<string>("metric");
   const [loadings, setLoadings] = useState<boolean>(true);
   const [citySearchData, setCitySearchData] = useState<WeatherData | { error: string } | null>(null);
   const [forecastData, setForecastData] = useState<{ list: Forecast[] } | null>(null);
@@ -78,7 +78,7 @@ function App() {
   }, [unit]);
 
 
-  useEffect(() => { 
+  useEffect(() => {
     const timer = setInterval(() => {
       setCurrentDateTime(new Date());
     }, 60000);
@@ -86,7 +86,7 @@ function App() {
     return () => clearInterval(timer);
   }, []);
 
- 
+
   const currentHour = currentDateTime.getHours();
   let greeting;
   if (currentHour < 12) {
@@ -105,28 +105,28 @@ function App() {
     fetchData();
   };
 
-  
+
   const filterForecastByFirstObjTime = (forecastData: any[]) => {
     if (!forecastData || forecastData.length === 0) return [];
     const firstObjTime = forecastData[0]?.dt_txt?.split(" ")[1];
     if (!firstObjTime) return [];
     return forecastData.filter((data) => data.dt_txt?.endsWith(firstObjTime));
   };
-  
+
 
   //  data for the next 6 hours
   const hourlyForecast = forecastData?.list?.slice(0, 6);
   const filteredForecast = filterForecastByFirstObjTime(forecastData?.list || []);
   const today = new Date();
   const todayDate = today.toLocaleDateString("en-US");
-  
-  
+
+
 
   return (
     <div className="background">
       <div className="box">
         {/* City search form */}
-       
+
         <form autoComplete="off" onSubmit={handleCitySearch}>
           <label>
             <Icon icon={search} size={25} />
@@ -146,10 +146,10 @@ function App() {
         {/* Left side of the UI */}
         <div className="current-weather-details-box">
 
-          
-        <h4 className='current-date'>{currentDateTime.toLocaleDateString()}</h4>
- 
-           {loadings ? (
+
+          <h4 className='current-date'>{currentDateTime.toLocaleDateString()}</h4>
+
+          {loadings ? (
             <div className="loader">
               <SphereSpinner loading={loadings} color="#2fa5ed" size={20} />
             </div>
@@ -168,7 +168,7 @@ function App() {
                           <div className="details">
                             <h4 className="city-name">{citySearchData.name}</h4>
                             <div className="icon-and-temp">
-                          
+
                               <h1>{citySearchData.main.temp}°</h1>
                             </div>
                             <h4 className="conditions">
@@ -178,137 +178,132 @@ function App() {
                             <div className="key-value-boxes">
                               <div className="key">
                                 <Icon icon={wind} size={20} className="icon" />
-                               
+
                               </div>
                               <div className="values">
-                              <span>{(citySearchData.wind.speed * 0.621371).toFixed(2)} mph</span>
+                                <span>{(citySearchData.wind.speed * 0.621371).toFixed(2)} mph</span>
                               </div>
                             </div>
 
                             <div className="key-value-boxes">
                               <div className="key">
                                 <Icon icon={droplet} size={20} className="icon" />
-                               
+
                               </div>
                               <div className="values">
                                 <span>{citySearchData.main.humidity}%</span>
                               </div>
                             </div>
 
-                          
 
-                                                  {/* Day wise report*/}
-                     
-                                                  {filteredForecast.length > 0 ? (
-  <div className="day-forecasts-container">
-    {filteredForecast.map((data, index) => {
-      const date = new Date(data.dt_txt);
-      const forecastDate = date.toLocaleDateString("en-US"); 
 
-     
-      const day = forecastDate === todayDate ? "Today" : date.toLocaleDateString("en-US", { weekday: "short" });
+                            {/* Day wise report*/}
 
- 
-      const forecastClass = forecastDate === todayDate ? "forecast-box today" : "forecast-box";
+                            {filteredForecast.length > 0 ? (
+                              <div className="day-forecasts-container">
+                                {filteredForecast.map((data, index) => {
+                                  const date = new Date(data.dt_txt);
+                                  const forecastDate = date.toLocaleDateString("en-US");
 
-      return (
-        <div className={forecastClass} key={index}>
-          <h5>{day}</h5>
-          <h5 className="max-temp">{data.main.temp_max}°</h5>
-          <h5 className="description">{data.weather[0].description}</h5>
-        </div>
-      );
-    })}
-  </div>
-) : (
-  <div>No Day Forecast Data Available</div>
-)}
+
+                                  const day = forecastDate === todayDate ? "Today" : date.toLocaleDateString("en-US", { weekday: "short" });
+
+
+                                  const forecastClass = forecastDate === todayDate ? "forecast-box today" : "forecast-box";
+
+                                  return (
+                                    <div className={forecastClass} key={index}>
+                                      <h5>{day}</h5>
+                                      <h5 className="max-temp">{data.main.temp_max}°</h5>
+                                      <h5 className="description">{data.weather[0].description}</h5>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : (
+                              <div>No Day Forecast Data Available</div>
+                            )}
                           </div>
 
 
 
 
-                  
-{/* //right side of the ui */}
+
+                          {/* //right side of the ui */}
 
 
                           <div className="metrices">
-           
 
-                          <div className="details">
 
-          <h3 className='greeting'>{greeting}</h3>
-                          <h3 className='current-time'>
-            {currentDateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-          </h3>
-                           
-                            <div className="icon-and-temp">
-                          
-                              <h3>{citySearchData.main.temp}°</h3>
-                            </div>
-                        
+                            <div className="details">
 
-                            <div className="key-value-box">
-                              <div className="key">
-                                <Icon icon={wind} size={20} className="icon" />
-                               
-                              </div>
-                              <div className="value">
-                              <span>{(citySearchData.wind.speed * 0.621371).toFixed(2)} mph</span>
-                              </div>
-                            </div>
+                              <h3 className='greeting'>{greeting}</h3>
+                              <h3 className='current-time'>
+                                {currentDateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                              </h3>
 
-                            <div className="key-value-box">
-                              <div className="key">
-                                <Icon icon={droplet} size={20} className="icon" />
-                               
+                              <div className="icon-and-temp">
+
+                                <h3>{citySearchData.main.temp}°</h3>
                               </div>
-                              <div className="value">
-                                <span>{citySearchData.main.humidity}%</span>
+
+
+                              <div className="key-value-box">
+                                <div className="key">
+                                  <Icon icon={wind} size={20} className="icon" />
+
+                                </div>
+                                <div className="value">
+                                  <span>{(citySearchData.wind.speed * 0.621371).toFixed(2)} mph</span>
+                                </div>
                               </div>
-                            </div> 
-                            <h4>
-                              Feels like {citySearchData.main.feels_like}°
-                            </h4>
-                            <h3 className="condition">
-                              {citySearchData.weather[0].description}
-                            </h3>       
+
+                              <div className="key-value-box">
+                                <div className="key">
+                                  <Icon icon={droplet} size={20} className="icon" />
+
+                                </div>
+                                <div className="value">
+                                  <span>{citySearchData.main.humidity}%</span>
+                                </div>
+                              </div>
+                              <h4>
+                                Feels like {citySearchData.main.feels_like}°
+                              </h4>
+                              <h3 className="condition">
+                                {citySearchData.weather[0].description}
+                              </h3>
 
                               {/* Hourly forecast data */}
-                      <h3 className="hourly-forecast-heading">Hourly Forecast</h3>
-                      {hourlyForecast && hourlyForecast.length > 0 ? (
-                        <div className="hourly-forecasts-container">
-                          {hourlyForecast.map((data, index) => {
-                            const hour = new Date(data.dt_txt).getHours();
-                            return (
-                              <div className="forecast-box" key={index}>
-                                <h5>{hour}:00</h5>
-                                {/* <img
+                              <h3 className="hourly-forecast-heading">Hourly Forecast</h3>
+                              {hourlyForecast && hourlyForecast.length > 0 ? (
+                                <div className="hourly-forecasts-container">
+                                  {hourlyForecast.map((data, index) => {
+                                    const hour = new Date(data.dt_txt).getHours();
+                                    return (
+                                      <div className="forecast-box" key={index}>
+                                        <h5>{hour}:00</h5>
+                                        {/* <img
                                   src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
                                   alt="icon"
                                 /> */}
-                                    <h5 className="max-temp">
-                                  {data.main.temp_max}°
-                                </h5>
-                                <h5 className='description'>{data.weather[0].description}</h5>
-                          
-                              </div>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <div>No Hourly Forecast Data Available</div>
-                      )}
-                                    
+                                        <h5 className="max-temp">
+                                          {data.main.temp_max}°
+                                        </h5>
+                                        <h5 className='description'>{data.weather[0].description}</h5>
+
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              ) : (
+                                <div>No Hourly Forecast Data Available</div>
+                              )}
                             </div>
-
-                          
-
-                                   
-                     </div>
+                          </div>
                         </div>
                       )}
-             
+
 
                     </>
                   )}
@@ -320,4 +315,4 @@ function App() {
       </div>
     </div>
   );
-}export default App;
+} export default App;

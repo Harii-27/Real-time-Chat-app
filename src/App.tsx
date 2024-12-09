@@ -2,18 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Icon from "react-icons-kit";
 import { search } from "react-icons-kit/feather/search";
-import { arrowUp } from "react-icons-kit/feather/arrowUp";
-import { arrowDown } from "react-icons-kit/feather/arrowDown";
 import { droplet } from "react-icons-kit/feather/droplet";
 import { wind } from "react-icons-kit/feather/wind";
-import { activity } from "react-icons-kit/feather/activity";
 import { SphereSpinner } from "react-spinners-kit";
 
-// Directly include hostName and appId
+
 const hostName = "https://api.openweathermap.org";
 const appId = "25e9b67830d60ad916e46f8cdd004adc";
 
-// Define interfaces for the weather and forecast data
+
 type WeatherData = {
   name: string;
   weather: { description: string; icon: string }[];
@@ -28,16 +25,16 @@ interface Forecast {
 }
 
 function App() {
-  // Local state
+
   const [city, setCity] = useState<string>("chennai");
-  const [unit, setUnit] = useState<string>("metric"); // metric = C and imperial = F
+  const [unit, setUnit] = useState<string>("metric"); 
   const [loadings, setLoadings] = useState<boolean>(true);
   const [citySearchData, setCitySearchData] = useState<WeatherData | { error: string } | null>(null);
   const [forecastData, setForecastData] = useState<{ list: Forecast[] } | null>(null);
   const [forecastError, setForecastError] = useState<string | null>(null);
   const [currentDateTime, setCurrentDateTime] = useState<Date>(new Date());
 
-  // Fetch city weather data
+  // city weather data
   const fetchCityData = async () => {
     try {
       const response = await axios.get(
@@ -51,7 +48,7 @@ function App() {
     }
   };
 
-  // Fetch 5-day forecast data
+  //  5-day forecast data
   const fetchForecastData = async (coords: { lat: number; lon: number }) => {
     if (!coords) return;
     try {
@@ -75,14 +72,13 @@ function App() {
     setLoadings(false);
   };
 
-  // Initial fetch on load and when unit changes
+
   useEffect(() => {
     fetchData();
   }, [unit]);
 
 
-  // Update the time every minute
-  useEffect(() => {
+  useEffect(() => { 
     const timer = setInterval(() => {
       setCurrentDateTime(new Date());
     }, 60000);
@@ -90,7 +86,7 @@ function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // Determine greeting
+ 
   const currentHour = currentDateTime.getHours();
   let greeting;
   if (currentHour < 12) {
@@ -109,7 +105,7 @@ function App() {
     fetchData();
   };
 
-  // Filter forecast data based on the time of the first object
+  
   const filterForecastByFirstObjTime = (forecastData: any[]) => {
     if (!forecastData || forecastData.length === 0) return [];
     const firstObjTime = forecastData[0]?.dt_txt?.split(" ")[1];
@@ -118,9 +114,12 @@ function App() {
   };
   
 
-  // Filter data for the next 6 hours
+  //  data for the next 6 hours
   const hourlyForecast = forecastData?.list?.slice(0, 6);
   const filteredForecast = filterForecastByFirstObjTime(forecastData?.list || []);
+  const today = new Date();
+  const todayDate = today.toLocaleDateString("en-US");
+  
   
 
   return (
@@ -130,7 +129,7 @@ function App() {
        
         <form autoComplete="off" onSubmit={handleCitySearch}>
           <label>
-            <Icon icon={search} size={20} />
+            <Icon icon={search} size={25} />
           </label>
           <input
             type="text"
@@ -148,7 +147,7 @@ function App() {
         <div className="current-weather-details-box">
 
           
-        <h4>{currentDateTime.toLocaleDateString()}</h4>
+        <h4 className='current-date'>{currentDateTime.toLocaleDateString()}</h4>
  
            {loadings ? (
             <div className="loader">
@@ -172,54 +171,58 @@ function App() {
                           
                               <h1>{citySearchData.main.temp}°</h1>
                             </div>
-                            <h4 className="description">
+                            <h4 className="conditions">
                               {citySearchData.weather[0].description}
                             </h4>
 
-                            <div className="key-value-box">
-                              <div className="key">
-                                <Icon icon={droplet} size={20} className="icon" />
-                               
-                              </div>
-                              <div className="value">
-                                <span>{citySearchData.main.humidity}%</span>
-                              </div>
-                            </div>
-
-                            <div className="key-value-box">
+                            <div className="key-value-boxes">
                               <div className="key">
                                 <Icon icon={wind} size={20} className="icon" />
                                
                               </div>
-                              <div className="value">
-                                <span>{citySearchData.wind.speed}kph</span>
+                              <div className="values">
+                              <span>{(citySearchData.wind.speed * 0.621371).toFixed(2)} mph</span>
                               </div>
                             </div>
 
-                                                  {/* Day wise report*/}
-                      {filteredForecast.length > 0 ? (
-                        <div className="day-forecasts-container">
-                          {filteredForecast.map((data, index) => {
-                            const date = new Date(data.dt_txt);
-                            const day = date.toLocaleDateString("en-US", {
-                              weekday: "short",
-                            });
-                            return (
-                              <div className="forecast-box" key={index}>
-                                <h5>{day}</h5>
-                                <h5 className="max-temp">
-                                  {data.main.temp_max}°
-                                </h5>
-                                <h5 className='description'>{data.weather[0].description}</h5>
-                           
+                            <div className="key-value-boxes">
+                              <div className="key">
+                                <Icon icon={droplet} size={20} className="icon" />
+                               
                               </div>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <div>No Day Forecast Data Available</div>
-                      )}
-                      
+                              <div className="values">
+                                <span>{citySearchData.main.humidity}%</span>
+                              </div>
+                            </div>
+
+                          
+
+                                                  {/* Day wise report*/}
+                     
+                                                  {filteredForecast.length > 0 ? (
+  <div className="day-forecasts-container">
+    {filteredForecast.map((data, index) => {
+      const date = new Date(data.dt_txt);
+      const forecastDate = date.toLocaleDateString("en-US"); 
+
+     
+      const day = forecastDate === todayDate ? "Today" : date.toLocaleDateString("en-US", { weekday: "short" });
+
+ 
+      const forecastClass = forecastDate === todayDate ? "forecast-box today" : "forecast-box";
+
+      return (
+        <div className={forecastClass} key={index}>
+          <h5>{day}</h5>
+          <h5 className="max-temp">{data.main.temp_max}°</h5>
+          <h5 className="description">{data.weather[0].description}</h5>
+        </div>
+      );
+    })}
+  </div>
+) : (
+  <div>No Day Forecast Data Available</div>
+)}
                           </div>
 
 
@@ -251,7 +254,7 @@ function App() {
                                
                               </div>
                               <div className="value">
-                                <span>{citySearchData.wind.speed}kph</span>
+                              <span>{(citySearchData.wind.speed * 0.621371).toFixed(2)} mph</span>
                               </div>
                             </div>
 

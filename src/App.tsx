@@ -169,7 +169,8 @@ function App() {
                             <h4 className="city-name">{citySearchData.name}</h4>
                             <div className="icon-and-temp">
 
-                              <h1>{citySearchData.main.temp}°</h1>
+                              <h1>{Math.round(citySearchData.main.temp)}°</h1>
+
                             </div>
                             <h4 className="conditions">
                               {citySearchData.weather[0].description}
@@ -214,7 +215,8 @@ function App() {
                                   return (
                                     <div className={forecastClass} key={index}>
                                       <h5>{day}</h5>
-                                      <h5 className="max-temp">{data.main.temp_max}°</h5>
+                                      <h5 className="max-temp">{Math.round(data.main.temp_max)}°</h5>
+
                                       <h5 className="description">{data.weather[0].description}</h5>
                                     </div>
                                   );
@@ -244,7 +246,8 @@ function App() {
 
                               <div className="icon-and-temp">
 
-                                <h3>{citySearchData.main.temp}°</h3>
+                                <h3>{Math.round(citySearchData.main.temp)}°</h3>
+
                               </div>
 
 
@@ -254,7 +257,8 @@ function App() {
 
                                 </div>
                                 <div className="value">
-                                  <span>{(citySearchData.wind.speed * 0.621371).toFixed(2)} mph</span>
+                                  <span>{Math.round(citySearchData.wind.speed * 0.621371)} mph</span>
+
                                 </div>
                               </div>
 
@@ -267,9 +271,8 @@ function App() {
                                   <span>{citySearchData.main.humidity}%</span>
                                 </div>
                               </div>
-                              <h4>
-                                Feels like {citySearchData.main.feels_like}°
-                              </h4>
+                              <h4>Feels like {Math.round(citySearchData.main.feels_like)}°</h4>
+
                               <h3 className="condition">
                                 {citySearchData.weather[0].description}
                               </h3>
@@ -287,9 +290,8 @@ function App() {
                                   src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
                                   alt="icon"
                                 /> */}
-                                        <h5 className="max-temp">
-                                          {data.main.temp_max}°
-                                        </h5>
+                                        <h5 className="max-temp">{Math.round(data.main.temp_max)}°</h5>
+
                                         <h5 className='description'>{data.weather[0].description}</h5>
 
                                       </div>

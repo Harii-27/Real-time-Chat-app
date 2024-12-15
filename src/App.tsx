@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
+import "./index.css";
 import { AuthContext } from "./context/AuthContext";
 import React from "react";
 

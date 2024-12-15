@@ -1,15 +1,19 @@
 module.exports = {
     env: {
-      browser: true,
-      node: true, // Enables Node.js global variables (including 'process')
-    },
-    globals: {
-      process: 'readonly', // Prevents ESLint from throwing errors about `process`
+      node: true, // Add node to environment
+      es2021: true, // Use ES2021 features
     },
     extends: [
-      'eslint:recommended',
-      'plugin:react/recommended', // If you're using React
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended", // TypeScript linting rules
     ],
-    // other configurations...
+    parserOptions: {
+      ecmaVersion: 12,
+      sourceType: "module",
+    },
+    parser: "@typescript-eslint/parser",
+    rules: {
+      // your custom rules
+    },
   };
   

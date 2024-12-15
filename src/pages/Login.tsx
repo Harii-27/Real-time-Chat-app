@@ -6,58 +6,46 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ ws }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [err, setErr] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const email = (e.target as HTMLFormElement).elements.namedItem('email') as HTMLInputElement;
+    const password = (e.target as HTMLFormElement).elements.namedItem('password') as HTMLInputElement;
 
     if (ws) {
-      // Send login credentials to the WebSocket server
-      ws.send(
-        JSON.stringify({
-          type: "LOGIN",
-          email,
-          password,
-        })
-      );
+      const payload = { type: "LOGIN", email: email.value, password: password.value };
+      ws.send(JSON.stringify(payload));
+
+      ws.onmessage = (message) => {
+        const response = JSON.parse(message.data);
+        if (response.status === "success") {
+          // Save user token or info if needed
+          navigate("/");
+        } else {
+          setErr(true);
+        }
+      };
+
+      ws.onerror = (error) => {
+        console.error("WebSocket error during login:", error);
+        setErr(true);
+      };
+    } else {
+      console.error("WebSocket is not connected.");
+      setErr(true);
     }
   };
-
-  // Listen for server responses to login
-  ws?.addEventListener("message", (event) => {
-    const message = JSON.parse(event.data);
-
-    if (message.type === "LOGIN_SUCCESS") {
-      navigate("/"); // Redirect to the home page after successful login
-    } else if (message.type === "LOGIN_ERROR") {
-      setErr(true); // Display error message on login failure
-    }
-  });
-
   return (
     <div className="formContainer">
       <div className="formWrapper">
         <span className="title">Login</span>
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <input type="email" placeholder="Email" required />
+          <input type="password" placeholder="Password" required />
           <button type="submit">Sign in</button>
-          {err && <span className="error">Invalid email or password</span>}
+          {err && <span>Login failed. Please check your credentials.</span>}
         </form>
         <p>
           Don't have an account? <Link to="/register">Register</Link>

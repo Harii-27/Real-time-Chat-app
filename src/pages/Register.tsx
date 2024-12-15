@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Add from "../img/addAvatar.png";
 import { useNavigate, Link } from "react-router-dom";
 
 interface RegisterProps {
@@ -11,65 +10,42 @@ const Register: React.FC<RegisterProps> = ({ ws }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
-    const form = e.target as HTMLFormElement;
-    const displayName = (form[0] as HTMLInputElement).value;
-    const email = (form[1] as HTMLInputElement).value;
-    const password = (form[2] as HTMLInputElement).value;
-    const file = (form[3] as HTMLInputElement).files?.[0];
+    const displayName = (e.target as HTMLFormElement).elements.namedItem('displayName') as HTMLInputElement;
+    const email = (e.target as HTMLFormElement).elements.namedItem('email') as HTMLInputElement;
+    const password = (e.target as HTMLFormElement).elements.namedItem('password') as HTMLInputElement;
 
     if (ws) {
-      try {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const avatarData = reader.result as string;
+      const payload = { type: "REGISTER", displayName: displayName.value, email: email.value, password: password.value };
+      console.log("Sending payload to server:", payload);
 
-          // Send registration data to the WebSocket server
-          ws.send(
-            JSON.stringify({
-              type: "REGISTER",
-              displayName,
-              email,
-              password,
-              avatar: avatarData, // Send the avatar image as a Base64 string
-            })
-          );
-        };
+      ws.send(JSON.stringify(payload));
 
-        if (file) {
-          reader.readAsDataURL(file);
+      ws.onmessage = (message) => {
+        console.log("Received message from server:", message.data);
+        const response = JSON.parse(message.data);
+        setLoading(false);
+        if (response.status === "success") {
+          navigate("/login");
         } else {
-          // Send registration data without avatar
-          ws.send(
-            JSON.stringify({
-              type: "REGISTER",
-              displayName,
-              email,
-              password,
-              avatar: null,
-            })
-          );
+          console.error("Registration failed:", response.message);
+          setErr(true);
         }
-      } catch (err) {
+      };
+
+      ws.onerror = (error) => {
+        console.error("WebSocket error during registration:", error);
         setErr(true);
         setLoading(false);
-      }
+      };
+    } else {
+      console.error("WebSocket is not connected.");
+      setErr(true);
+      setLoading(false);
     }
-
-    // Listen for registration response from the WebSocket server
-    ws?.addEventListener("message", (event) => {
-      const message = JSON.parse(event.data);
-
-      if (message.type === "REGISTER_SUCCESS") {
-        navigate("/"); // Redirect to the home page on success
-      } else if (message.type === "REGISTER_ERROR") {
-        setErr(true);
-        setLoading(false);
-      }
-    });
   };
 
   return (
@@ -77,17 +53,13 @@ const Register: React.FC<RegisterProps> = ({ ws }) => {
       <div className="formWrapper">
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
-          <input required type="text" placeholder="Display name" />
-          <input required type="email" placeholder="Email" />
-          <input required type="password" placeholder="Password" />
-          <input required style={{ display: "none" }} type="file" id="file" />
-          <label htmlFor="file">
-            <img src={Add} alt="Avatar" />
-            <span>Add an avatar</span>
-          </label>
-          <button disabled={loading}>Sign up</button>
-          {loading && "Uploading and compressing the image, please wait..."}
-          {err && <span className="error">Something went wrong</span>}
+          <input type="text" placeholder="Display name" required />
+          <input type="email" placeholder="Email" required />
+          <input type="password" placeholder="Password" required />
+          <button type="submit" disabled={loading}>
+            {loading ? "Registering..." : "Sign up"}
+          </button>
+          {err && <span>Registration failed. Please try again.</span>}
         </form>
         <p>
           Already have an account? <Link to="/login">Login</Link>

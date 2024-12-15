@@ -24,3 +24,9 @@ export const AuthContextProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+import PropTypes from 'prop-types';
+
+AuthContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

@@ -17,7 +17,8 @@
     "react-icons-kit": "^2.0.0",
     "react-router-dom": "^7.0.2",
     "react-spinners-kit": "^1.9.1",
-    "uuid": "^11.0.3"
+    "uuid": "^11.0.3",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.16",

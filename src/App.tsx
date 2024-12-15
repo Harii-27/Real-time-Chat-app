@@ -1,41 +1,68 @@
+import React, { useState, useEffect, useContext } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useContext } from "react";
 import "./index.css";
-import { AuthContext } from "./context/AuthContext";
-import React from "react";
 
-function App() {
+const App = () => {
   const { currentUser } = useContext(AuthContext);
+  const [ws, setWs] = useState<WebSocket | null>(null);
 
-  const ProtectedRoute = ({ children }) => {
+  useEffect(() => {
+    if (currentUser) {
+      const socket = new WebSocket("ws://localhost:5000");
+      setWs(socket);
+
+      socket.onopen = () => {
+        console.log("WebSocket connected");
+      };
+
+      socket.onmessage = (message) => {
+        console.log("Received message:", message.data);
+      };
+
+      socket.onerror = (error) => {
+        console.error("WebSocket error:", error);
+      };
+
+      socket.onclose = () => {
+        console.log("WebSocket closed");
+      };
+
+      return () => {
+        if (socket) {
+          socket.close();
+        }
+      };
+    }
+  }, [currentUser]);
+
+  const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     if (!currentUser) {
       return <Navigate to="/login" />;
     }
-
     return children;
   };
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/">
-          <Route
-            index
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Route>
+        {/* Pass ws as a prop to Home, Login, and Register components */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home ws={ws} />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="login" element={<Login ws={ws} />} />
+        <Route path="register" element={<Register ws={ws} />} />
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

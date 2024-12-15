@@ -17,7 +17,7 @@ const Search: React.FC<SearchProps> = ({ ws }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [err, setErr] = useState(false);
 
-  const { currentUser } = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
 
   const handleSearch = () => {
     if (ws && username) {
@@ -45,13 +45,13 @@ const Search: React.FC<SearchProps> = ({ ws }) => {
   };
 
   const handleSelect = () => {
-    if (ws && user) {
+    if (ws && user && authContext && authContext.currentUser) {
       // Handle selecting a user (e.g., creating a new chat)
-      const combinedId = currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid;
+      const combinedId = authContext.currentUser.uid > user.uid ? authContext.currentUser.uid + user.uid : user.uid + authContext.currentUser.uid;
       const chatMessage = JSON.stringify({
         type: "createChat",
         combinedId,
-        currentUser,
+        currentUser: authContext.currentUser,
         user,
       });
 
@@ -85,5 +85,4 @@ const Search: React.FC<SearchProps> = ({ ws }) => {
     </div>
   );
 };
-
 export default Search;

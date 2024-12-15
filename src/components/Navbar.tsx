@@ -7,7 +7,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ ws, onLogout }) => {
-  const { currentUser } = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
 
   const handleLogout = () => {
     // Close WebSocket connection when logging out
@@ -24,12 +24,11 @@ const Navbar: React.FC<NavbarProps> = ({ ws, onLogout }) => {
     <div className='navbar'>
       <span className="logo">Lama Chat</span>
       <div className="user">
-        <img src={currentUser?.photoURL || ''} alt="User" />
-        <span>{currentUser?.displayName}</span>
+        <img src={authContext?.currentUser?.photoURL || ''} alt="User" />
+        <span>{authContext?.currentUser?.displayName}</span>
         <button onClick={handleLogout}>Logout</button>
       </div>
     </div>
   );
 };
-
 export default Navbar;

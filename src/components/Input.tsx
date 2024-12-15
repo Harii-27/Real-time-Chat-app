@@ -6,26 +6,35 @@ import { ChatContext } from "../context/ChatContext";
 import { v4 as uuid } from "uuid";
 import React from "react";
 
+// Define the InputProps type for WebSocket prop
 interface InputProps {
-  ws: WebSocket | null; // WebSocket passed as a prop
+  ws: WebSocket | null;
 }
 
 const Input: React.FC<InputProps> = ({ ws }) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState<string>("");
   const [img, setImg] = useState<File | null>(null);
 
-  const { currentUser } = useContext(AuthContext);
+  // Safely access currentUser from AuthContext
+  const { currentUser } = useContext(AuthContext) || { currentUser: null }; // Fallback to null if AuthContext is undefined
   const { data } = useContext(ChatContext);
 
+  // Handle send button click
   const handleSend = async () => {
+    if (!currentUser) {
+      // If currentUser is not available, show an error or handle appropriately
+      console.error("No current user available");
+      return;
+    }
+
     if (ws) {
       // Construct the message object
       const message = {
         id: uuid(),
         text,
-        senderId: currentUser.uid,
-        date: Date.now(), // You can use Timestamp.now() in Firebase, here we use Date.now()
-        img: img ? URL.createObjectURL(img) : null, // For image preview, or you can upload the image first and use its URL
+        senderId: currentUser.uid, // Use currentUser's UID safely
+        date: Date.now(), // Use timestamp
+        img: img ? URL.createObjectURL(img) : null, // Handle image file
       };
 
       // Send the message over WebSocket
@@ -38,7 +47,7 @@ const Input: React.FC<InputProps> = ({ ws }) => {
       // Send the message to the WebSocket server
       ws.send(JSON.stringify(messagePayload));
 
-      // Optionally, clear the input fields after sending
+      // Clear input fields after sending
       setText("");
       setImg(null);
     }

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 
-// Define the type for the message prop
+// Define types for the message prop
 interface MessageType {
   id: string;
   text: string;
@@ -15,7 +15,7 @@ interface MessageProps {
 }
 
 const Message: React.FC<MessageProps> = ({ message }) => {
-  const { currentUser } = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
   const ref = useRef<HTMLDivElement>(null);
@@ -24,17 +24,23 @@ const Message: React.FC<MessageProps> = ({ message }) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
+  if (!authContext || !authContext.currentUser) {
+    return null; // Return null if currentUser is not available
+  }
+
+  const { currentUser } = authContext;
+
   return (
     <div
       ref={ref}
-      className={`message ${message.senderId === currentUser?.uid ? "owner" : ""}`}
+      className={`message ${message.senderId === currentUser.uid ? "owner" : ""}`}
     >
       <div className="messageInfo">
         <img
           src={
-            message.senderId === currentUser?.uid
-              ? currentUser?.photoURL || ""
-              : data?.user?.photoURL || ""
+            message.senderId === currentUser.uid
+              ? currentUser.photoURL || "" // Use currentUser's photoURL if it's the sender
+              : data?.user?.photoURL || "" // Use the chat's user photoURL if it's not the sender
           }
           alt="User"
         />
@@ -47,5 +53,4 @@ const Message: React.FC<MessageProps> = ({ message }) => {
     </div>
   );
 };
-
 export default Message;

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";  // Ensure correct import
 import { ChatContext } from "../context/ChatContext";
 
 // Define types for the chat and user (you can customize based on your requirements)
@@ -21,13 +21,15 @@ interface ChatsProps {
 
 const Chats: React.FC<ChatsProps> = ({ ws }) => {
   const [chats, setChats] = useState<ChatType[]>([]);
-  const { currentUser } = useContext(AuthContext);
+  
+  // Safely access currentUser from AuthContext
+  const { currentUser } = useContext(AuthContext) || { currentUser: null }; // Default fallback for context
+  
   const { dispatch } = useContext(ChatContext);
 
   useEffect(() => {
-    if (ws && currentUser.uid) {
+    if (ws && currentUser?.uid) {
       const getChats = () => {
-        // Send a message to the server to fetch the user's chats
         const getChatsMessage = JSON.stringify({
           type: "getChats",
           userId: currentUser.uid,
@@ -35,7 +37,6 @@ const Chats: React.FC<ChatsProps> = ({ ws }) => {
 
         ws.send(getChatsMessage); // Request chats from the WebSocket server
 
-        // Listen for the response from the server
         ws.onmessage = (event) => {
           const response = JSON.parse(event.data);
           if (response.type === "chats") {
@@ -46,12 +47,16 @@ const Chats: React.FC<ChatsProps> = ({ ws }) => {
 
       getChats();
     }
-  }, [ws, currentUser.uid]);
+  }, [ws, currentUser]);
 
   const handleSelect = (user: UserType) => {
-    // Dispatch an action to change the selected user for chat
     dispatch({ type: "CHANGE_USER", payload: user });
   };
+
+  // Render loading or error message if currentUser is not available
+  if (!currentUser) {
+    return <div>Please log in to view your chats.</div>;
+  }
 
   return (
     <div className="chats">

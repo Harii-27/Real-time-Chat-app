@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 import "./index.css";
 
 const App = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext) as { currentUser: any };
   const [ws, setWs] = useState<WebSocket | null>(null);
 
   useEffect(() => {
@@ -66,5 +66,4 @@ const App = () => {
     </BrowserRouter>
   );
 };
-
 export default App;

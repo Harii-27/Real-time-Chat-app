@@ -11,33 +11,35 @@ const App = () => {
   const [ws, setWs] = useState<WebSocket | null>(null);
 
   useEffect(() => {
-    if (currentUser) {
-      const socket = new WebSocket("ws://localhost:5000");
-      setWs(socket);
+    // Initialize WebSocket connection only once when the app starts
+    const socket = new WebSocket("ws://localhost:5000");
 
-      socket.onopen = () => {
-        console.log("WebSocket connected");
-      };
+    socket.onopen = () => {
+      console.log("WebSocket connected");
+    };
 
-      socket.onmessage = (message) => {
-        console.log("Received message:", message.data);
-      };
+    socket.onmessage = (message) => {
+      console.log("Received message:", message.data);
+    };
 
-      socket.onerror = (error) => {
-        console.error("WebSocket error:", error);
-      };
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
 
-      socket.onclose = () => {
-        console.log("WebSocket closed");
-      };
+    socket.onclose = () => {
+      console.log("WebSocket closed");
+    };
 
-      return () => {
-        if (socket) {
-          socket.close();
-        }
-      };
-    }
-  }, [currentUser]);
+    // Set WebSocket to state after it's connected
+    setWs(socket);
+
+    // Cleanup WebSocket connection when the component is unmounted
+    return () => {
+      if (socket) {
+        socket.close();
+      }
+    };
+  }, []); // Empty dependency array to initialize WebSocket once
 
   const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     if (!currentUser) {

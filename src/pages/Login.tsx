@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 interface LoginProps {
@@ -14,12 +14,13 @@ const Login: React.FC<LoginProps> = ({ ws }) => {
     const email = (e.target as HTMLFormElement).elements.namedItem('email') as HTMLInputElement;
     const password = (e.target as HTMLFormElement).elements.namedItem('password') as HTMLInputElement;
 
-    if (ws) {
+    if (ws && ws.readyState === WebSocket.OPEN) {
       const payload = { type: "LOGIN", email: email.value, password: password.value };
       ws.send(JSON.stringify(payload));
 
       ws.onmessage = (message) => {
         const response = JSON.parse(message.data);
+        console.log("Response from server:", response);  // Debugging the response
         if (response.status === "success") {
           // Save user token or info if needed
           navigate("/");
@@ -37,13 +38,14 @@ const Login: React.FC<LoginProps> = ({ ws }) => {
       setErr(true);
     }
   };
+
   return (
     <div className="formContainer">
       <div className="formWrapper">
         <span className="title">Login</span>
         <form onSubmit={handleSubmit}>
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="password" placeholder="Password" required />
           <button type="submit">Sign in</button>
           {err && <span>Login failed. Please check your credentials.</span>}
         </form>

@@ -18,7 +18,7 @@ const Register: React.FC<RegisterProps> = ({ ws }) => {
     const email = (e.target as HTMLFormElement).elements.namedItem('email') as HTMLInputElement;
     const password = (e.target as HTMLFormElement).elements.namedItem('password') as HTMLInputElement;
 
-    if (ws) {
+    if (ws && ws.readyState === WebSocket.OPEN) {
       const payload = { type: "REGISTER", displayName: displayName.value, email: email.value, password: password.value };
       console.log("Sending payload to server:", payload);
 
@@ -29,22 +29,22 @@ const Register: React.FC<RegisterProps> = ({ ws }) => {
         const response = JSON.parse(message.data);
         setLoading(false);
         if (response.status === "success") {
-          navigate("/login");
+          navigate("/login"); // Navigate to login on successful registration
         } else {
           console.error("Registration failed:", response.message);
-          setErr(true);
+          setErr(true); // Show error if registration failed
         }
       };
 
       ws.onerror = (error) => {
         console.error("WebSocket error during registration:", error);
         setErr(true);
-        setLoading(false);
+        setLoading(false); // Stop loading on WebSocket error
       };
     } else {
       console.error("WebSocket is not connected.");
       setErr(true);
-      setLoading(false);
+      setLoading(false); // Stop loading if WebSocket is not connected
     }
   };
 
@@ -53,9 +53,9 @@ const Register: React.FC<RegisterProps> = ({ ws }) => {
       <div className="formWrapper">
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Display name" required />
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
+          <input type="text" name="displayName" placeholder="Display name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="password" placeholder="Password" required />
           <button type="submit" disabled={loading}>
             {loading ? "Registering..." : "Sign up"}
           </button>

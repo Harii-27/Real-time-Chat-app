@@ -13,6 +13,7 @@ wss.on("connection", (ws) => {
 
   ws.on("message", (message) => {
     const data = JSON.parse(message);
+    console.log("Received message:", data);
 
     if (data.type === "REGISTER") {
       const { displayName, email, password } = data;

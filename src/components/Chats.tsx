@@ -30,19 +30,30 @@ const Chats: React.FC<ChatsProps> = ({ ws }) => {
   useEffect(() => {
     if (ws && currentUser?.uid) {
       const getChats = () => {
-        const getChatsMessage = JSON.stringify({
-          type: "getChats",
-          userId: currentUser.uid,
-        });
+        // Wait until the WebSocket connection is open before sending messages
+        if (ws.readyState === WebSocket.OPEN) {
+          const getChatsMessage = JSON.stringify({
+            type: "getChats",
+            userId: currentUser.uid,
+          });
+          ws.send(getChatsMessage); // Request chats from the WebSocket server
 
-        ws.send(getChatsMessage); // Request chats from the WebSocket server
-
-        ws.onmessage = (event) => {
-          const response = JSON.parse(event.data);
-          if (response.type === "chats") {
-            setChats(response.chats); // Set chats when received from server
-          }
-        };
+          ws.onmessage = (event) => {
+            const response = JSON.parse(event.data);
+            if (response.type === "chats") {
+              setChats(response.chats); // Set chats when received from server
+            }
+          };
+        } else {
+          // WebSocket is not open yet, try again once it opens
+          ws.onopen = () => {
+            const getChatsMessage = JSON.stringify({
+              type: "getChats",
+              userId: currentUser.uid,
+            });
+            ws.send(getChatsMessage); // Request chats from the WebSocket server
+          };
+        }
       };
 
       getChats();

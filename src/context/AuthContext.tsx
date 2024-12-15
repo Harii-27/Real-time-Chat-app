@@ -11,7 +11,12 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 // Context provider
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState<{ uid: string; displayName: string; photoURL?: string } | null>(null);
+  // Set a permanent user by default
+  const [currentUser, setCurrentUser] = useState<{ uid: string; displayName: string; photoURL?: string } | null>({
+    uid: '12345', // Permanent UID
+    displayName: 'Harii', // Permanent display name
+    photoURL: 'https://example.com/photo.jpg', // Optional photo URL
+  });
 
   return (
     <AuthContext.Provider value={{ currentUser, setCurrentUser }}>

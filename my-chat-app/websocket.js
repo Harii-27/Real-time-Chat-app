@@ -6,7 +6,9 @@ const WEBSOCKET_PORT = 5000;
 // Create the WebSocket server
 const wss = new WebSocketServer({ port: WEBSOCKET_PORT });
 
-const users = []; // Temporary storage for registered users (use a database in production)
+// Predefined valid credentials
+const validEmail = "user@example.com";
+const validPassword = "password123";
 
 wss.on("connection", (ws) => {
   console.log("New client connected");
@@ -15,42 +17,27 @@ wss.on("connection", (ws) => {
     const data = JSON.parse(message);
     console.log("Received message:", data);
 
-    if (data.type === "REGISTER") {
-      const { displayName, email, password } = data;
+    // Handle login request
+    if (data.type === "LOGIN") {
+      const { email, password } = data;
 
-      // Basic validation
-      if (!displayName || !email || !password) {
+      if (email === validEmail && password === validPassword) {
+        // Valid credentials: Send success response
+        ws.send(
+          JSON.stringify({
+            status: "success",
+            message: "Login successful",
+          })
+        );
+      } else {
+        // Invalid credentials: Send error response
         ws.send(
           JSON.stringify({
             status: "error",
-            message: "Missing required fields",
+            message: "Invalid credentials",
           })
         );
-        return;
       }
-
-      // Check if email already exists
-      const userExists = users.some((user) => user.email === email);
-      if (userExists) {
-        ws.send(
-          JSON.stringify({
-            status: "error",
-            message: "Email already registered",
-          })
-        );
-        return;
-      }
-
-      // Add user to storage
-      users.push({ displayName, email, password });
-
-      // Send success response
-      ws.send(
-        JSON.stringify({
-          status: "success",
-          message: "Registration successful",
-        })
-      );
     }
   });
 

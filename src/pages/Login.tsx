@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 interface LoginProps {
@@ -9,7 +9,7 @@ const Login: React.FC<LoginProps> = ({ ws }) => {
   const [err, setErr] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = (e.target as HTMLFormElement).elements.namedItem('email') as HTMLInputElement;
     const password = (e.target as HTMLFormElement).elements.namedItem('password') as HTMLInputElement;
@@ -18,13 +18,15 @@ const Login: React.FC<LoginProps> = ({ ws }) => {
       const payload = { type: "LOGIN", email: email.value, password: password.value };
       ws.send(JSON.stringify(payload));
 
+      // Handle WebSocket response
       ws.onmessage = (message) => {
         const response = JSON.parse(message.data);
         console.log("Response from server:", response);  // Debugging the response
         if (response.status === "success") {
-          // Save user token or info if needed
+          // Redirect to home page if login is successful
           navigate("/");
         } else {
+          // Show error message if login fails
           setErr(true);
         }
       };
@@ -47,7 +49,7 @@ const Login: React.FC<LoginProps> = ({ ws }) => {
           <input type="email" name="email" placeholder="Email" required />
           <input type="password" name="password" placeholder="Password" required />
           <button type="submit">Sign in</button>
-          {err && <span>Login failed. Please check your credentials.</span>}
+          {err && <span style={{ color: "red" }}>Login failed. Invalid credentials.</span>}
         </form>
         <p>
           Don't have an account? <Link to="/register">Register</Link>

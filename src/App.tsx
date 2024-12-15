@@ -25,21 +25,23 @@ const App = () => {
         console.log("Received message:", message.data);
       };
 
-      socket.onerror = (error) => {
-        console.error("WebSocket error:", error);
-        setError("WebSocket connection failed."); // Show an error message
+      socket.onerror = (event) => {
+        console.error("WebSocket error:", event);
+        setError("WebSocket connection failed. Please try again.");
       };
 
       socket.onclose = () => {
         console.log("WebSocket closed");
-        // Optionally, you can attempt to reconnect after a delay
-        setTimeout(connectWebSocket, 5000); // Retry connecting after 5 seconds
+        setError("WebSocket closed. Reconnecting...");
+        // Retry connecting after 5 seconds
+        setTimeout(connectWebSocket, 5000);
       };
 
       setWs(socket); // Store WebSocket in state for later use
     };
 
-    connectWebSocket(); // Initiate WebSocket connection
+    // Try to establish WebSocket connection
+    connectWebSocket();
 
     // Cleanup WebSocket connection when the component is unmounted
     return () => {

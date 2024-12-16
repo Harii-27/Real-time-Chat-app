@@ -25,11 +25,10 @@ app.use(json());
 
 let users = [];
 
-// Socket.IO connection handler
+
 io.on('connection', (socket) => {
   console.log(`A user connected: ${socket.id}`);
 
-  // Handle user joining the chat
   socket.on('user:join', (user) => {
    
     const existingUser = users.find(u => u.id === user.id);
@@ -40,7 +39,6 @@ io.on('connection', (socket) => {
 
     io.emit('users', users);
 
-    // Send a welcome message to the newly joined user
     socket.emit('message', {
       id: Date.now().toString(),
       senderId: 'system',
@@ -56,7 +54,7 @@ io.on('connection', (socket) => {
 
     const receiverSocket = users.find(user => user.id === message.receiverId)?.socketId;
     if (receiverSocket) {
-      // Emit the message to the receiver
+     
       io.to(receiverSocket).emit('message', {
         ...message,
         timestamp: Date.now(),

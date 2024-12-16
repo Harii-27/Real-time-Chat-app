@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "./Store/main";
+import { AppState } from "./Store/main";
 import { useWeb } from "./hooks/useWeb";
 import "./index.css";
 import Sidebar from "./components/Sidebar";
@@ -10,13 +10,12 @@ import MessageBox from "./components/MessageBox";
 import Members from "./components/Members";
 
 function App() {
-  // Get current user from Redux state
-  const currentUser = useSelector((state: RootState) => state.chat.currentUser);
+  
+  const currentUser = useSelector((state: AppState) => state.message.currentUser);
 
-  // Initialize socket with current user
+  
   useWeb(currentUser);
 
-  // If no user is logged in, display the Login component
   if (!currentUser) {
     return <Login />;
   }
@@ -24,22 +23,22 @@ function App() {
   return (
     <div className="app-wrapper">
       <div className="app-container">
-        {/* Sidebar */}
+        
         <Sidebar />
 
-        {/* Main Content */}
+    
         <div className="main-content">
-          {/* Header - Positioned inside the main content */}
+       
           <Header />
 
           <div className="content-body">
-            {/* Chat List */}
-            <div className="chat-list-container">
+      
+            <div className="message-list">
               <Members />
             </div>
 
           
-            <div className="chat-window">
+            <div className="message-box">
               <MessageBox />
             </div>
           </div>

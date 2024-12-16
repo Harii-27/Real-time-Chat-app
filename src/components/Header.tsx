@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../Store/main";
+import { AppState } from "../Store/main";
 import { FaSearch } from "react-icons/fa";
 import './components.css';
 
 const Header = () => {
-  const currentUser = useSelector((state: RootState) => state.chat.currentUser);
+  const currentUser = useSelector((state: AppState) => state.message.currentUser);
   const [searchQuery, setSearchQuery] = useState("");
 
 

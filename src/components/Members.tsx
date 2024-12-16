@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {  selectActiveUser } from '../Store/Slice';
-import { RootState } from '../Store/main';
+import { AppState } from '../Store/main';
 import { User } from '../types';
 import './components.css';
 import defaultAvatar from '../img/1651837230260.png';
 
 const Members = () => {
   const dispatch = useDispatch();
-  const { users, currentUser, selectedUser } = useSelector((state: RootState) => state.chat);
+  const { users, currentUser, selectedUser } = useSelector((state: AppState) => state.message);
 
   // Define multiple users like Codescribo
   const defaultUsers: User[] = React.useMemo(() => [

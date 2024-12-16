@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BsArrowRightSquareFill } from "react-icons/bs";
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../Store/main';
+import { AppState } from '../Store/main';
 import {  reorderUsers,  selectActiveUser } from '../Store/Slice'; // Added  selectActiveUser
 import { Message, User } from '../types';
 import { FaPlus, FaRegFaceSmile } from "react-icons/fa6";
@@ -15,7 +15,7 @@ const MessageBox = () => { // Renamed from messageBox to MessageBox
   const messageEndRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const { selectedUser, currentUser, usersOrder, users } = useSelector(
-    (state: RootState) => state.chat
+    (state: AppState) => state.message
   );
 
 
@@ -42,7 +42,7 @@ const MessageBox = () => { // Renamed from messageBox to MessageBox
       replaceMessages((prev) => [...prev, newMsg]);
       setInputMessage('');
 
-      // Move the selected user to the top of the chat list
+    
       const newOrder = [selectedUser.id, ...usersOrder.filter((id) => id !== selectedUser.id)];
 
       dispatch( reorderUsers(newOrder));
@@ -70,9 +70,9 @@ const MessageBox = () => { // Renamed from messageBox to MessageBox
           </div>
         </div>
         <div className="messageHeaderIcons">
-          <FaVideo className="chatIcon" title="Video Call" />
-          <FaPhone className="chatIcon" title="Voice Call" />
-          <FaFileAlt className="chatIcon" title="Share" />
+          <FaVideo className="messageIcon" title="Video Call" />
+          <FaPhone className="messageIcon" title="Voice Call" />
+          <FaFileAlt className="messageIcon" title="Share" />
         </div>
       </div>
 

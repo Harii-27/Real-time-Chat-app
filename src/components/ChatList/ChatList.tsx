@@ -4,7 +4,7 @@ import { setSelectedUser } from '../../Store/chatSlice';
 import { RootState } from '../../Store';
 import { User } from '../../types';
 import './ChatList.css';
-
+import '../../index.css';
 // Import the image for the default user
 import defaultAvatar from '../../img/1651837230260.png';  // Update this path based on your actual file structure
 

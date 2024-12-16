@@ -16,7 +16,7 @@ const Sidebar = () => {
   };
 
   const iconStyle: React.CSSProperties = {
-    color: '#93c5fd',
+    color: '#fff',
     cursor: 'pointer',
     transition: 'color 0.3s',
   };

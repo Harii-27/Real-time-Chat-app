@@ -1,10 +1,9 @@
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../Store/chatSlice";
 import { User } from "../../types";
-import "./UserSelect.css";
-import React, { useState } from "react";
-
 import defaultAvatar from '../../img/virat.png'; // Import the default avatar
+import "./Login.css"; // Import the provided CSS
 
 // Single dummy user
 const dummyUser: User = {
@@ -14,14 +13,14 @@ const dummyUser: User = {
   online: true,
 };
 
-export default function UserSelect() {
+export default function Login() {
   const dispatch = useDispatch();
   const [username, setUsername] = useState(dummyUser.name); // Pre-fill with the dummy user name
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // Handle login functionality
   const handleLogin = () => {
     if (username.trim()) {
-      // If the username is provided, set the current user
       dispatch(setCurrentUser({ ...dummyUser, name: username }));
       setIsLoggedIn(true);
     }
@@ -33,13 +32,13 @@ export default function UserSelect() {
         <div className="login-container">
           <h1 className="login-heading">Login</h1>
 
-          {/* Display the user's avatar on the login screen */}
+          {/* Display avatar */}
           <img src={dummyUser.avatar} alt={dummyUser.name} className="login-avatar" />
 
           <input
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)} // Handle changes in the input
+            onChange={(e) => setUsername(e.target.value)} // Handle input changes
             placeholder="Enter your username"
             className="username-input"
           />

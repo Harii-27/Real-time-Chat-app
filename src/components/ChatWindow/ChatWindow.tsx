@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BsArrowRightSquareFill } from "react-icons/bs";
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../Store';
@@ -8,35 +8,34 @@ import { formatMessageTime } from '../../utils/DateUtils';
 import { FaPhone, FaVideo, FaFileAlt } from 'react-icons/fa';
 import './ChatWindow.css';
 
-export default function ChatWindow() {
-  const [message, setMessage] = useState('');
-  const [localMessages, setLocalMessages] = useState<Message[]>([]); // Local state for messages
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+const ChatWindow = () => {
+  const [inputMessage, setInputMessage] = useState('');
+  const [messages, setMessages] = useState<Message[]>([]);
+  const messageEndRef = useRef<HTMLDivElement>(null);
   const selectedUser = useSelector((state: RootState) => state.chat.selectedUser);
   const currentUser = useSelector((state: RootState) => state.chat.currentUser);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToEnd = () => {
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [localMessages]); // Scroll when localMessages change
+    scrollToEnd();
+  }, [messages]);
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    if (message.trim() && currentUser && selectedUser) {
-      const newMessage: Message = {
-        id: `${currentUser.id}-${Date.now()}`, // Generate a unique ID for the message
+    if (inputMessage.trim() && currentUser && selectedUser) {
+      const newMsg: Message = {
+        id: `${currentUser.id}-${Date.now()}`,
         senderId: currentUser.id,
         receiverId: selectedUser.id,
-        content: message,
+        content: inputMessage,
         timestamp: Date.now(),
       };
 
-      // Add the new message to localMessages
-      setLocalMessages((prevMessages) => [...prevMessages, newMessage]);
-      setMessage(''); // Clear the input field
+      setMessages(prev => [...prev, newMsg]);
+      setInputMessage('');
     }
   };
 
@@ -48,29 +47,21 @@ export default function ChatWindow() {
     );
   }
 
-  // Filter the local messages that are between the current user and the selected user
-  const chatMessages = localMessages.filter(
-    (msg) =>
-      (msg.senderId === currentUser?.id && msg.receiverId === selectedUser.id) ||
+  const filteredMessages = messages.filter(
+    msg => (msg.senderId === currentUser?.id && msg.receiverId === selectedUser.id) ||
       (msg.senderId === selectedUser.id && msg.receiverId === currentUser?.id)
   );
 
   return (
     <div className="chatWindow">
-      {/* Header */}
       <div className="chatHeader">
         <div className="userInfo">
-          <img
-            src={selectedUser.avatar}
-            alt={selectedUser.name}
-            className="userAvatar"
-          />
+          <img src={selectedUser.avatar} alt={selectedUser.name} className="userAvatar" />
           <div>
             <p className="userName">{selectedUser.name}</p>
             <p className="userStatus">{selectedUser.online ? 'Online' : 'Offline'}</p>
           </div>
         </div>
-        {/* Icons */}
         <div className="chatHeaderIcons">
           <FaVideo className="chatIcon" title="Video Call" />
           <FaPhone className="chatIcon" title="Voice Call" />
@@ -78,17 +69,9 @@ export default function ChatWindow() {
         </div>
       </div>
 
-      {/* Messages */}
       <div className="chatMessages">
-        {chatMessages.map((msg: Message) => (
-          <div
-            key={msg.id}
-            className={`chatMessage ${
-              msg.senderId === currentUser?.id
-                ? 'chatMessageOutgoing'
-                : 'chatMessageIncoming'
-            }`}
-          >
+        {filteredMessages.map((msg) => (
+          <div key={msg.id} className={`chatMessage ${msg.senderId === currentUser?.id ? 'chatMessageOutgoing' : 'chatMessageIncoming'}`}>
             <div className="messageWrapper">
               <img
                 src={msg.senderId === currentUser?.id ? currentUser.avatar : selectedUser.avatar}
@@ -102,16 +85,15 @@ export default function ChatWindow() {
             </div>
           </div>
         ))}
-        <div ref={messagesEndRef} />
+        <div ref={messageEndRef} />
       </div>
 
-      {/* Input */}
       <div className="chatInput">
-        <form onSubmit={handleSend} className="messageForm">
+        <form onSubmit={handleSendMessage} className="messageForm">
           <input
             type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            value={inputMessage}
+            onChange={(e) => setInputMessage(e.target.value)}
             placeholder="Type a message"
             className="messageInput"
           />
@@ -124,4 +106,6 @@ export default function ChatWindow() {
       </div>
     </div>
   );
-}
+};
+
+export default ChatWindow;

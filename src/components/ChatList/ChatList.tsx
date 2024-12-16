@@ -1,49 +1,74 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedUser } from '../../Store/chatSlice';
 import { RootState } from '../../Store';
 import { User } from '../../types';
 import './ChatList.css';
-import '../../index.css';
-// Import the image for the default user
-import defaultAvatar from '../../img/1651837230260.png';  // Update this path based on your actual file structure
+import defaultAvatar from '../../img/1651837230260.png';
 
-export default function ChatList() {
+const ChatList = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state: RootState) => state.chat.users);
-  const currentUser = useSelector((state: RootState) => state.chat.currentUser);
-  const selectedUser = useSelector((state: RootState) => state.chat.selectedUser);
+  const { users, currentUser, selectedUser } = useSelector((state: RootState) => state.chat);
 
-  // Default user with the imported image as avatar
-  const defaultUser: User = {
-    id: '1',
-    name: 'Codescribo',
-    avatar: defaultAvatar,  // Using the imported image
-    online: true,
+  // Define multiple users like Codescribo
+  const defaultUsers: User[] = React.useMemo(() => [
+    {
+      id: '1',
+      name: 'Codescribo',
+      avatar: defaultAvatar,
+      online: true,
+    },
+    {
+      id: '2',
+      name: 'Shunmugam',
+      avatar: defaultAvatar,
+      online: true,
+    },
+    {
+      id: '3',
+      name: 'Sac',
+      avatar: defaultAvatar,
+      online: true,
+    },
+    {
+      id: '4',
+      name: 'Ganesh',
+      avatar: defaultAvatar,
+      online: false,
+    },
+  ], []);
+
+  // Filter out the current user and merge with predefined users
+  const filteredUsers = React.useMemo(() => [
+    ...defaultUsers,
+    ...users.filter(user => user.id !== currentUser?.id)
+  ], [users, currentUser]);
+
+  const handleUserClick = (user: User) => {
+    dispatch(setSelectedUser(user));
   };
-
-  // Filter users to exclude the current user and add the default user at the top
-  const filteredUsers = [defaultUser, ...users.filter(user => user.id !== currentUser?.id)];
 
   return (
     <div className="chatList">
-      {filteredUsers.map((user: User) => (
-        <div
-          key={user.id}
-          onClick={() => dispatch(setSelectedUser(user))}
-          className={`chatItem ${selectedUser?.id === user.id ? 'chatItemSelected' : ''}`}
-        >
-          <img src={user.avatar} alt={user.name} className="userAvatar" />
-          <div className="userInfo">
-            <p className={`userName ${selectedUser?.id === user.id ? 'userNameSelected' : ''}`}>
-              {user.name}
-            </p>
-            <p className={`userStatus ${selectedUser?.id === user.id ? 'userStatusSelected' : ''}`}>
-              {user.online ? 'Online' : 'Offline'}
-            </p>
+      {filteredUsers.map((user) => {
+        const isSelected = selectedUser?.id === user.id;
+        const userStatus = user.online ? 'Online' : 'Offline';
+        return (
+          <div
+            key={user.id}
+            className={`chatItem ${isSelected ? 'chatItemSelected' : ''}`}
+            onClick={() => handleUserClick(user)}
+          >
+            <img src={user.avatar} alt={user.name} className="userAvatar" />
+            <div className="userInfo">
+              <p className={`userName ${isSelected ? 'userNameSelected' : ''}`}>{user.name}</p>
+              <p className={`userStatus ${isSelected ? 'userStatusSelected' : ''}`}>{userStatus}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
-}
+};
+
+export default ChatList;

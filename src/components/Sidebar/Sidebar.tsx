@@ -2,7 +2,7 @@ import React from 'react';
 import { FaUser, FaTh, FaCog, FaPowerOff } from 'react-icons/fa';
 import { HiMenuAlt2 } from "react-icons/hi";
 import { BiMessageSquareMinus } from "react-icons/bi";
-import './Sidebar.css'; // Use the regular CSS file instead of CSS module
+import './Sidebar.css'; 
 
 const Sidebar = () => {
   return (

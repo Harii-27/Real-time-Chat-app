@@ -1,20 +1,24 @@
 import { useSelector } from "react-redux";
 import { RootState } from "./Store";
-import UserSelect from "./components/UserSelect/UserSelect";
 import ChatList from "./components/ChatList/Chatlist";
 import ChatWindow from "./components/ChatWindow/ChatWindow";
-import { useSocket } from "./hooks/useSocket";
+import { useWeb } from "./hooks/useWeb";
 import "./index.css";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Header from "./components/Header/Header"; // Import Header
+import Header from "./components/Header/Header"; 
 import React from "react";
+import Login from "./components/Login/Login";
 
 function App() {
+  // Get current user from Redux state
   const currentUser = useSelector((state: RootState) => state.chat.currentUser);
-  useSocket(currentUser);
 
+  // Initialize socket with current user
+  useWeb(currentUser);
+
+  // If no user is logged in, display the Login component
   if (!currentUser) {
-    return <UserSelect />;
+    return <Login />;
   }
 
   return (

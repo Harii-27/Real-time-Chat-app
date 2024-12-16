@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BsArrowRightSquareFill } from "react-icons/bs";
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../Store';
+import { RootState } from '../../Store/main';
+import { setUsersOrder, setSelectedUser } from '../../Store/Slice'; // Added setSelectedUser
 import { Message, User } from '../../types';
 import { FaPlus, FaRegFaceSmile } from "react-icons/fa6";
-import { formatMessageTime } from '../../utils/DateUtils';
+import { getTimeString } from '../../time/time';
 import { FaPhone, FaVideo, FaFileAlt } from 'react-icons/fa';
 import './ChatWindow.css';
 
@@ -12,8 +13,10 @@ const ChatWindow = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const messageEndRef = useRef<HTMLDivElement>(null);
-  const selectedUser = useSelector((state: RootState) => state.chat.selectedUser);
-  const currentUser = useSelector((state: RootState) => state.chat.currentUser);
+  const dispatch = useDispatch();
+  const { selectedUser, currentUser, usersOrder, users } = useSelector(
+    (state: RootState) => state.chat
+  );
 
   const scrollToEnd = () => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -22,6 +25,16 @@ const ChatWindow = () => {
   useEffect(() => {
     scrollToEnd();
   }, [messages]);
+
+  useEffect(() => {
+    
+    if (!selectedUser) {
+      const defaultUser = users.find(user => user.name === "CodeScribo");
+      if (defaultUser) {
+        dispatch(setSelectedUser(defaultUser));
+      }
+    }
+  }, [dispatch, selectedUser, users]);
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,21 +47,24 @@ const ChatWindow = () => {
         timestamp: Date.now(),
       };
 
-      setMessages(prev => [...prev, newMsg]);
+    
+      setMessages((prev) => [...prev, newMsg]);
       setInputMessage('');
+
+      // Move the selected user to the top of the chat list
+      const newOrder = [selectedUser.id, ...usersOrder.filter((id) => id !== selectedUser.id)];
+
+      dispatch(setUsersOrder(newOrder));
     }
   };
 
   if (!selectedUser) {
-    return (
-      <div className="chatWindow">
-        <p>Select a user to start chatting</p>
-      </div>
-    );
+    return null; 
   }
 
   const filteredMessages = messages.filter(
-    msg => (msg.senderId === currentUser?.id && msg.receiverId === selectedUser.id) ||
+    (msg) =>
+      (msg.senderId === currentUser?.id && msg.receiverId === selectedUser.id) ||
       (msg.senderId === selectedUser.id && msg.receiverId === currentUser?.id)
   );
 
@@ -71,16 +87,25 @@ const ChatWindow = () => {
 
       <div className="chatMessages">
         {filteredMessages.map((msg) => (
-          <div key={msg.id} className={`chatMessage ${msg.senderId === currentUser?.id ? 'chatMessageOutgoing' : 'chatMessageIncoming'}`}>
+          <div
+            key={msg.id}
+            className={`chatMessage ${
+              msg.senderId === currentUser?.id ? 'chatMessageOutgoing' : 'chatMessageIncoming'
+            }`}
+          >
             <div className="messageWrapper">
               <img
-                src={msg.senderId === currentUser?.id ? currentUser.avatar : selectedUser.avatar}
+                src={
+                  msg.senderId === currentUser?.id
+                    ? currentUser.avatar
+                    : selectedUser.avatar
+                }
                 alt="User Avatar"
                 className="messageAvatar"
               />
               <div className="messageContentWrapper">
                 <p className="messageContent">{msg.content}</p>
-                <span className="messageTime">{formatMessageTime(msg.timestamp)}</span>
+                <span className="messageTime">{getTimeString(msg.timestamp)}</span>
               </div>
             </div>
           </div>

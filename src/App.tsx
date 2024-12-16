@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "./Store";
+import { RootState } from "./Store/main";
 import ChatList from "./components/ChatList/Chatlist";
 import ChatWindow from "./components/ChatWindow/ChatWindow";
 import { useWeb } from "./hooks/useWeb";

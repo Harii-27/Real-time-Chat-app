@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../Store";
+import { RootState } from "../../Store/main";
 import { FaSearch } from "react-icons/fa";
 import './Header.css'; 
 
@@ -20,28 +20,35 @@ const Header = () => {
 
   return (
     <div className="header">
-      <div className="searchContainer">
-        <FaSearch className="searchIcon" />
-        <input
-          type="text"
-          placeholder="Search contacts, messages"
-          className="searchInput"
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
-      </div>
-
-      <div className="profileContainer">
-        <div className="profileInfo">
-          <p className="profileName">{name}</p>
-          <p className="profileStatus">
-            {online && <span className="online-dot"></span>}
-            {online ? "Online" : "Offline"}
-          </p>
-        </div>
-        <img src={avatar} alt={name} className="profileAvatar" />
-      </div>
+  <div className="left">
+    <div className="searchContainer">
+      <FaSearch className="searchIcon" />
+      <input
+        type="text"
+        placeholder="Search contacts, messages and options here"
+        className="searchInput"
+        value={searchQuery}
+        onChange={handleSearchChange}
+      />
     </div>
+  </div>
+
+  <div className="divider"></div>  {/* Divider Line */}
+
+  <div className="right">
+    <div className="profileContainer">
+      <div className="profileInfo">
+        <p className="profileName">{name}</p>
+        <p className="profileStatus">
+          {online && <span className="online-dot"></span>}
+          {online ? "Online" : "Offline"}
+        </p>
+      </div>
+      <img src={avatar} alt={name} className="profileAvatar" />
+    </div>
+  </div>
+</div>
+
   );
 };
 

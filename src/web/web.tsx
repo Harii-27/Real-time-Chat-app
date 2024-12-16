@@ -1,6 +1,6 @@
 import { io, Socket } from "socket.io-client";
-import { store } from "../Store";
-import { addMessage, setUsers } from "../Store/chatSlice";
+import { store } from "../Store/main";
+import { addMessage, setUsers } from "../Store/Slice";
 import { Message, User } from "../types";
 
 class ChatService {

@@ -6,6 +6,7 @@ interface ChatState {
   selectedUser: User | null;
   users: User[];
   messages: Message[];
+  usersOrder: string[]; 
 }
 
 const initialState: ChatState = {
@@ -13,6 +14,7 @@ const initialState: ChatState = {
   selectedUser: null,
   users: [],
   messages: [],
+  usersOrder: [], 
 };
 
 const chatSlice = createSlice({
@@ -34,8 +36,19 @@ const chatSlice = createSlice({
     setMessages: (state, action: PayloadAction<Message[]>) => {
       state.messages = action.payload;
     },
+    // Reducer to update the order of users
+    setUsersOrder: (state, action: PayloadAction<string[]>) => {
+      state.usersOrder = action.payload;
+    },
   },
 });
 
-export const { setCurrentUser, setSelectedUser, setUsers, addMessage, setMessages } = chatSlice.actions;
+export const {
+  setCurrentUser,
+  setSelectedUser,
+  setUsers,
+  addMessage,
+  setMessages,
+  setUsersOrder,
+} = chatSlice.actions;
 export default chatSlice.reducer;

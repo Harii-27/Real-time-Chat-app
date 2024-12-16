@@ -8,12 +8,12 @@ const Header = () => {
   const currentUser = useSelector((state: RootState) => state.chat.currentUser);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Handle change in search input
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
-  // Early return if no user is logged in
+ 
   if (!currentUser) return null;
 
   const { name, avatar, online } = currentUser;
@@ -21,7 +21,7 @@ const Header = () => {
   return (
     <div className="header">
 
-      <div className="searchContainer">
+      <div className="searchBox">
         <FaSearch className="searchIcon" />
         <input
           type="text"
@@ -33,8 +33,8 @@ const Header = () => {
       </div>
 
 
-        <div className="profileContainer">
-        <div className="profileInfo">
+        <div className="profileBox">
+        <div className="profiledetails">
           <p className="profileName">{name}</p>
           <p className="profileStatus">
             {online && <span className="online-dot"></span>}

@@ -5,8 +5,8 @@ import { User } from "../types";
 import defaultAvatar from '../img/virat.png'; // Import the default avatar
 import './components.css';
 
-// Single dummy user
-const dummyUser: User = {
+
+const mainUser: User = {
   id: "1",
   name: "Harii",
   avatar: defaultAvatar,  
@@ -15,25 +15,25 @@ const dummyUser: User = {
 
 export default function Login() {
   const dispatch = useDispatch();
-  const [username, setUsername] = useState(dummyUser.name); // Pre-fill with the dummy user name
+  const [username, setUsername] = useState(mainUser.name); // Pre-fill with the dummy user name
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Handle login functionality
   const handleLogin = () => {
     if (username.trim()) {
-      dispatch(setCurrentUser({ ...dummyUser, name: username }));
+      dispatch(setCurrentUser({ ...mainUser, name: username }));
       setIsLoggedIn(true);
     }
   };
 
   return (
-    <div className="user-select-wrapper">
+    <div className="mainUser-container">
       {!isLoggedIn ? (
         <div className="login-container">
           <h1 className="login-heading">Login</h1>
 
           {/* Display avatar */}
-          <img src={dummyUser.avatar} alt={dummyUser.name} className="login-avatar" />
+          <img src={mainUser.avatar} alt={mainUser.name} className="login-avatar" />
 
           <input
             type="text"
@@ -47,15 +47,15 @@ export default function Login() {
           </button>
         </div>
       ) : (
-        <div className="user-select-wrapper">
-          <h1 className="user-select-heading">Welcome, {username}</h1>
+        <div className="mainUser-container">
+          <h1 className="mainUser-details1">Welcome, {username}</h1>
           <div className="user-select-list">
             <div
-              onClick={() => dispatch(setCurrentUser(dummyUser))}
+              onClick={() => dispatch(setCurrentUser(mainUser))}
               className="user-select-item"
             >
-              <img src={dummyUser.avatar} alt={dummyUser.name} className="user-avatar" />
-              <p className="user-name">{dummyUser.name}</p>
+              <img src={mainUser.avatar} alt={mainUser.name} className="user-avatar" />
+              <p className="user-name">{mainUser.name}</p>
             </div>
           </div>
         </div>

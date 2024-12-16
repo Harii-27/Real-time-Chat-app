@@ -1,5 +1,5 @@
 /* Container for the entire user-select section */
-.user-select-wrapper {
+.mainUser-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,7 +120,7 @@
 }
 
 /* User select section after login */
-.user-select-heading {
+.mainUser-details1 {
   font-size: 24px;
   font-weight: 600;
   color: #333;
@@ -177,7 +177,7 @@
 }
 
 
-.profileContainer {
+.profileBox {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -191,7 +191,7 @@
   border: 2px solid #fff;  /* Optional: border for avatar to match target UI style */
 }
 
-.profileInfo {
+.profiledetails {
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -220,7 +220,7 @@
   display: inline-block;
 }
 
-.searchContainer {
+.searchBox {
   position: relative;
   flex: 1;
   max-width: 800px; 
@@ -258,11 +258,11 @@
     height: auto;
   }
 
-  .searchContainer {
+  .searchBox {
     width: 100px;
   }
 
-  .profileContainer {
+  .profileBox {
     gap: 15px;
     margin-right: 10px;
   }
@@ -273,7 +273,7 @@
 }
 
 
-.chatList {
+.members {
   background-color:#b6b6e2;
     height: 100%;
   
@@ -281,11 +281,11 @@
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  .chatList {
+  .members {
     padding: 10px;
   }
   
-  .chatItem {
+  .membersName {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -294,20 +294,20 @@
     margin-bottom: 12px;
   }
   
-  .chatItem:hover {
+  .membersName:hover {
      /* Change the background on hover */
     transform: scale(1.02);
   }
   
-  .chatItemSelected {
+  .membersNameSelected {
     background-color: #6C72D3; /* Selected item background */
   }
   
-  .chatItemSelected .userName {
+  .membersNameSelected .userName {
     color: #fff; /* White color for selected username */
   }
   
-  .chatItemSelected .userStatus {
+  .membersNameSelected .userStatus {
     color: #ccc; /* Lighter gray for selected user status */
   }
   
@@ -399,11 +399,11 @@
   
   /* Mobile Screen */
   @media (max-width: 480px) {
-    .chatList {
+    .members {
       padding: 10px;
     }
   
-    .chatItem {
+    .membersName {
       padding: 10px;
       flex-direction: column;
       align-items: flex-start;
@@ -427,18 +427,18 @@
       font-size: 0.8rem;
     }
   
-    .chatItemSelected {
+    .membersNameSelected {
       background-color: #6C72D3;
     }
   }
   
   /* Tablet and medium screens */
   @media (min-width: 481px) and (max-width: 768px) {
-    .chatList {
+    .members {
       padding: 15px;
     }
   
-    .chatItem {
+    .membersName {
       padding: 12px;
       flex-direction: row;
       align-items: center;
@@ -458,14 +458,14 @@
       font-size: 1rem;
     }
   
-    .chatItemSelected {
+    .membersNameSelected {
       background-color: #6C72D3;
     }
   }
   
   /* Large screens (Desktops) */
   @media (min-width: 769px) {
-    .chatItem {
+    .membersName {
       padding: 15px;
       flex-direction: row;
       align-items: center;
@@ -693,7 +693,7 @@
   }
   
   
-  .profileContainer {
+  .profileBox {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -707,7 +707,7 @@
     border: 2px solid #fff;  /* Optional: border for avatar to match target UI style */
   }
   
-  .profileInfo {
+  .profiledetails {
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -736,7 +736,7 @@
     display: inline-block;
   }
   
-  .searchContainer {
+  .searchBox {
     position: relative;
     flex: 1;
     max-width: 800px; 
@@ -774,11 +774,11 @@
       height: auto;
     }
   
-    .searchContainer {
+    .searchBox {
       width: 100px;
     }
   
-    .profileContainer {
+    .profileBox {
       gap: 15px;
       margin-right: 10px;
     }

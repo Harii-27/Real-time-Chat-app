@@ -49,14 +49,14 @@ const Members = () => {
   };
 
   return (
-    <div className="chatList">
+    <div className="members">
       {filteredUsers.map((user) => {
         const isSelected = selectedUser?.id === user.id;
         const userStatus = user.online ? 'Online' : 'Offline';
         return (
           <div
             key={user.id}
-            className={`chatItem ${isSelected ? 'chatItemSelected' : ''}`}
+            className={`membersName ${isSelected ? 'membersNameSelected' : ''}`}
             onClick={() => handleUserClick(user)}
           >
             <img src={user.avatar} alt={user.name} className="userAvatar" />

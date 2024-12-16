@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BsArrowRightSquareFill } from "react-icons/bs";
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../Store/main';
-import { setUsersOrder, setSelectedUser } from '../../Store/Slice'; // Added setSelectedUser
-import { Message, User } from '../../types';
+import { RootState } from '../Store/main';
+import { setUsersOrder, setSelectedUser } from '../Store/Slice'; // Added setSelectedUser
+import { Message, User } from '../types';
 import { FaPlus, FaRegFaceSmile } from "react-icons/fa6";
-import { getTimeString } from '../../time/time';
+import { getTimeString } from '../time/time';
 import { FaPhone, FaVideo, FaFileAlt } from 'react-icons/fa';
-import './ChatWindow.css';
+import './components.css';
 
 const ChatWindow = () => {
   const [inputMessage, setInputMessage] = useState('');

@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import { RootState } from "./Store/main";
-import ChatList from "./components/ChatList/Chatlist";
-import ChatWindow from "./components/ChatWindow/ChatWindow";
+import ChatList from "./components/ChatList";
+import ChatWindow from "./components/ChatWindow";
 import { useWeb } from "./hooks/useWeb";
 import "./index.css";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Header from "./components/Header/Header"; 
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header"; 
 import React from "react";
-import Login from "./components/Login/Login";
+import Login from "./components/Login";
 
 function App() {
   // Get current user from Redux state

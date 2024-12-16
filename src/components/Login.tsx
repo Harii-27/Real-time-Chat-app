@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../../Store/Slice";
-import { User } from "../../types";
-import defaultAvatar from '../../img/virat.png'; // Import the default avatar
-import "./Login.css"; // Import the provided CSS
+import { setCurrentUser } from "../Store/Slice";
+import { User } from "../types";
+import defaultAvatar from '../img/virat.png'; // Import the default avatar
+import './components.css';
 
 // Single dummy user
 const dummyUser: User = {

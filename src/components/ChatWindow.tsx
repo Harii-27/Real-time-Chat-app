@@ -119,7 +119,7 @@ const ChatWindow = () => {
             type="text"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Type a message"
+            placeholder="Type your message here..."
             className="messageInput"
           />
           <FaRegFaceSmile className="emojiIcon" />

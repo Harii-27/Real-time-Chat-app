@@ -6,7 +6,7 @@ import { User } from '../types';
 import './components.css';
 import defaultAvatar from '../img/1651837230260.png';
 
-const ChatList = () => {
+const Members = () => {
   const dispatch = useDispatch();
   const { users, currentUser, selectedUser } = useSelector((state: RootState) => state.chat);
 
@@ -71,4 +71,4 @@ const ChatList = () => {
   );
 };
 
-export default ChatList;
+export default Members;

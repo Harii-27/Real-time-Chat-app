@@ -9,7 +9,7 @@ import { getTimeString } from '../time/time';
 import { FaPhone, FaVideo, FaFileAlt } from 'react-icons/fa';
 import './components.css';
 
-const ChatWindow = () => {
+const MessageBox = () => { // Renamed from ChatWindow to MessageBox
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const messageEndRef = useRef<HTMLDivElement>(null);
@@ -27,7 +27,6 @@ const ChatWindow = () => {
   }, [messages]);
 
   useEffect(() => {
-    
     if (!selectedUser) {
       const defaultUser = users.find(user => user.name === "CodeScribo");
       if (defaultUser) {
@@ -47,7 +46,6 @@ const ChatWindow = () => {
         timestamp: Date.now(),
       };
 
-    
       setMessages((prev) => [...prev, newMsg]);
       setInputMessage('');
 
@@ -69,7 +67,7 @@ const ChatWindow = () => {
   );
 
   return (
-    <div className="chatWindow">
+    <div className="messageBox"> {/* Renamed class from chatWindow to messageBox */}
       <div className="chatHeader">
         <div className="userInfo">
           <img src={selectedUser.avatar} alt={selectedUser.name} className="userAvatar" />
@@ -133,4 +131,4 @@ const ChatWindow = () => {
   );
 };
 
-export default ChatWindow;
+export default MessageBox; 

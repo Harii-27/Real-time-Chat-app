@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import { RootState } from "./Store/main";
-import ChatList from "./components/ChatList";
-import ChatWindow from "./components/ChatWindow";
 import { useWeb } from "./hooks/useWeb";
 import "./index.css";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header"; 
 import React from "react";
 import Login from "./components/Login";
+import MessageBox from "./components/Message";
+import Members from "./components/Name";
 
 function App() {
   // Get current user from Redux state
@@ -35,12 +35,12 @@ function App() {
           <div className="content-body">
             {/* Chat List */}
             <div className="chat-list-container">
-              <ChatList />
+              <Members />
             </div>
 
-            {/* Chat Window */}
+          
             <div className="chat-window">
-              <ChatWindow />
+              <MessageBox />
             </div>
           </div>
         </div>

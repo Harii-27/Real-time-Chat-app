@@ -15,7 +15,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f3f4f6;
+  background-color: rgb(91, 97, 210);
 }
 
 .app-container {
@@ -62,7 +62,7 @@ body {
   flex: 1;
 }
 
-/* Chat List  */
+/* Chat List */
 .chat-list-container {
   width: 320px;
   border-right: 1px solid #e5e7eb;
@@ -70,11 +70,115 @@ body {
   flex-direction: column;
 }
 
-/* Chat window  */
+/* Chat window */
 .chat-window {
   flex: 1;
   background-color: #f9fafb;
   display: flex;
   flex-direction: column;
   padding: 16px;
+}
+
+/* Media Queries for responsiveness */
+
+/* Tablet view (up to 1024px) */
+@media screen and (max-width: 1024px) {
+  .app-container {
+    flex-direction: column; /* Stack elements vertically on smaller screens */
+    height: auto;
+  }
+
+  .sidebar {
+    width: 100%; /* Sidebar should take full width */
+    border-right: none; /* Remove right border */
+    border-bottom: 1px solid #e5e7eb; /* Add bottom border instead */
+  }
+
+  .chat-list-container {
+    width: 100%; /* Make chat list full width */
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb; /* Add bottom border instead */
+  }
+
+  .main-content {
+    flex-direction: column;
+  }
+
+  .header {
+    padding: 0 10px; /* Reduce padding for smaller screens */
+  }
+}
+
+/* Mobile view (up to 768px) */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 100%; /* Sidebar should take full width */
+    padding: 10px;
+  }
+
+  .chat-list-container {
+    width: 100%; /* Chat list takes full width */
+    padding: 5px;
+  }
+
+  .header {
+    padding: 0 10px; /* Reduce padding */
+    font-size: 14px; /* Adjust font size */
+  }
+
+  .chat-window {
+    padding: 12px; /* Less padding on small screens */
+  }
+
+  .app-container {
+    height: auto;
+  }
+}
+
+/* Mobile view (up to 480px) */
+@media screen and (max-width: 480px) {
+  .app-wrapper {
+    padding: 10px; /* Add some padding to the app wrapper */
+  }
+
+  .app-container {
+    height: auto;
+  }
+
+  .sidebar {
+    width: 100%; /* Full width sidebar */
+    padding: 10px;
+    margin-bottom: 10px; /* Add margin for spacing */
+  }
+
+  .chat-list-container {
+    width: 100%; /* Full width chat list */
+    padding: 5px;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+
+  .header {
+    flex-direction: column; /* Stack header elements vertically */
+    height: auto; /* Adjust header height */
+    font-size: 12px; /* Reduce font size */
+    padding: 10px;
+  }
+
+  .content-body {
+    flex-direction: column; /* Stack the content vertically */
+  }
+
+  .chat-window {
+    padding: 10px; /* Reduce padding */
+  }
+
+  /* Make the chat list container smaller on mobile */
+  .chat-list-container {
+    width: 100%;
+    max-height: 200px; /* Limit height for mobile */
+    overflow-y: scroll;
+  }
 }

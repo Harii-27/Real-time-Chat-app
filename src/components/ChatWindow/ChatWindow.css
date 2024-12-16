@@ -3,14 +3,20 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 10px;
+  padding: 20px;
+  background-color: #FFFFFF; /* Light background to keep it clean */
+  border-radius: 10px; /* Rounded corners for the chat window */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  position: relative; /* Prevents unwanted shifts */
 }
 
 .chatHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #D4D6FF; /* Subtle border at the bottom */
+  padding-bottom: 10px;
 }
 
 .userInfo {
@@ -19,36 +25,44 @@
 }
 
 .userAvatar {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 15px;
+  object-fit: cover;
 }
 
 .userName {
-  font-weight: bold;
+  font-weight: 600;
+  color: #333;
+  font-size: 1.2rem;
 }
 
 .userStatus {
-  font-size: 12px;
-  color: gray;
+  font-size: 14px;
+  color: #777;
 }
 
 .chatHeaderIcons {
   display: flex;
-  gap: 15px;
+  gap: 20px;
+  color: #5B61D2; /* Matching color from your UI */
 }
 
 .chatMessages {
   flex-grow: 1;
   overflow-y: auto;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  padding-right: 10px;
+  padding-left: 10px; /* Ensures no message is too close to the edge */
+  display: flex;
+  flex-direction: column;
 }
 
 .chatMessage {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .chatMessageOutgoing {
@@ -65,33 +79,40 @@
 }
 
 .messageAvatar {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 12px;
+  object-fit: cover;
 }
 
 .messageContentWrapper {
-  background-color: #f1f1f1;
-  padding: 8px 12px;
-  border-radius: 10px;
+  background-color: #F1F4FF; /* Light purple background for messages */
+  padding: 12px 18px;
+  border-radius: 15px;
   max-width: 75%;
+  word-wrap: break-word;
+  overflow-wrap: break-word; /* Prevents long words from overflowing */
 }
 
 .messageContent {
   margin: 0;
+  font-size: 14px;
+  color: #333;
 }
 
 .messageTime {
-  font-size: 10px;
-  color: gray;
-  margin-top: 4px;
+  font-size: 11px;
+  color: #999;
+  margin-top: 6px;
 }
 
 .chatInput {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 20px;
+  border-top: 1px solid #D4D6FF;
+  padding-top: 10px;
 }
 
 .messageForm {
@@ -104,35 +125,41 @@
   flex-grow: 1;
   border: none;
   outline: none;
-  padding: 5px;
+  padding: 10px;
   font-size: 14px;
-  border-radius: 20px;
-  background-color: transparent;
-  z-index: 1;
+  border-radius: 25px;
+  background-color: #F4F6FF; /* Background color matching the theme */
   position: relative;
+  z-index: 1;
 }
 
 .emojiIcon, .plusIcon {
-  margin-left: 10px;
-  font-size: 18px;
+  margin-left: 15px;
+  font-size: 20px;
   cursor: pointer;
+  color: #5B61D2; /* Color matching the header icons */
 }
 
 .sendButton {
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 10px; /* Increase space between input and button */
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sendIcon {
-  font-size: 22px;
-  color: #4CAF50;
+  font-size: 40px;
+  color: #5B61D2;
 }
 
 /* Ensure the messages list scrolls smoothly */
 .chatMessages::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .chatMessages::-webkit-scrollbar-thumb {
@@ -142,4 +169,17 @@
 
 .chatMessages::-webkit-scrollbar-thumb:hover {
   background-color: #555;
+}
+
+/* Additional styles for focus state */
+.messageInput:focus {
+  outline: none; /* Prevent outline shift */
+  box-shadow: 0 0 0 3px rgba(91, 97, 210, 0.3); /* Light glow effect */
+}
+
+/* Ensure no overflow issues */
+.chatMessages {
+  max-height: calc(100vh - 180px); /* Adjust height based on your header and input */
+  overflow-y: auto;
+  padding-right: 10px;
 }

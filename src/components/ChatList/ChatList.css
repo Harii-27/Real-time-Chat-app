@@ -1,133 +1,138 @@
 /* Chat List Styling */
 .chatList {
-    background-color: #E0E1FF;
-    height: 100%;
-    overflow-y: auto;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .chatItem {
-    display: flex;
-    align-items: center;
+  background-color: #F4F6FF; /* Light purple background */
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px;
+  margin: 0;
+  border-right: 1px solid #D4D6FF; /* Subtle border to separate from chat window */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow for separation */
+}
+
+.chatItem {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+  border-radius: 8px; /* Rounded corners */
+  margin-bottom: 12px;
+}
+
+.chatItem:hover {
+  background-color: #6C72D3; /* Hover effect matching target design */
+  transform: scale(1.02); /* Slight scale on hover */
+}
+
+.chatItemSelected {
+  background-color: #6C72D3; /* Selected item background */
+  color: white;
+}
+
+.userAvatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover; /* Ensure image covers the avatar circle */
+  margin-right: 15px;
+}
+
+.userInfo {
+  margin-left: 10px;
+}
+
+.userName {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.userStatus {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.userNameSelected,
+.userStatusSelected {
+  color: white; 
+}
+
+.userStatusSelected {
+  font-weight: 500;
+  color: #D1D3F3;
+}
+
+/* Notification Icon */
+.notificationIcon {
+  font-size: 16px;
+  color: red;
+  margin-left: 8px;
+}
+
+/* Responsive Design */
+
+/* Mobile */
+@media (max-width: 480px) {
+  .chatList {
     padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.2s;
   }
-  
-  .chatItem:hover {
-    background-color: #5B61D2;
+
+  .chatItem {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .chatItemSelected {
-    background-color: #5B61D2;
-  }
-  
+
   .userAvatar {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    margin-bottom: 8px;
   }
-  
+
   .userInfo {
-    margin-left: 10px;
+    margin-left: 0;
   }
-  
+
   .userName {
-    font-weight: bold;
-    color: #333;
-    margin: 0;
+    font-size: 1rem;
   }
-  
+
   .userStatus {
-    font-size: 0.9rem;
-    color: #666;
-    margin: 0;
+    font-size: 0.8rem;
   }
-  
-  .userNameSelected,
-  .userStatusSelected {
-    color: white; 
+
+  .chatItemSelected {
+    background-color: #6C72D3;
   }
-  
-  .userStatusSelected {
-    color: white;
+}
+
+/* Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+  .chatList {
+    padding: 15px;
   }
-  
-  
-  .notificationIcon {
-    font-size: 16px;
-    color: red;
-    margin-left: 5px;
+
+  .chatItem {
+    padding: 12px;
+    flex-direction: row;
+    align-items: center;
   }
-  
-  /* Responsive Design */
-  
-  /* Mobile */
-  @media (max-width: 480px) {
-    .chatList {
-      padding: 10px;
-    }
-  
-    .chatItem {
-      padding: 8px;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .userAvatar {
-      width: 35px;
-      height: 35px;
-      margin-bottom: 5px;
-    }
-  
-    .userInfo {
-      margin-left: 0;
-    }
-  
-    .userName {
-      font-size: 1rem;
-    }
-  
-    .userStatus {
-      font-size: 0.8rem;
-    }
-  
-    .chatItemSelected {
-      background-color: #4C53A5;
-    }
+
+  .userAvatar {
+    width: 45px;
+    height: 45px;
+    margin-right: 12px;
   }
-  
-  /* Tablet */
-  @media (min-width: 481px) and (max-width: 768px) {
-    .chatList {
-      padding: 15px;
-    }
-  
-    .chatItem {
-      padding: 10px;
-      flex-direction: row;
-      align-items: center;
-    }
-  
-    .userAvatar {
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
-    }
-  
-    .userName {
-      font-size: 1.1rem;
-    }
-  
-    .userStatus {
-      font-size: 0.9rem;
-    }
-  
-    .chatItemSelected {
-      background-color: #5B61D2;
-    }
+
+  .userName {
+    font-size: 1.2rem;
   }
-  
-  
-  
+
+  .userStatus {
+    font-size: 1rem;
+  }
+
+  .chatItemSelected {
+    background-color: #6C72D3;
+  }
+}

@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Store";
 import { FaSearch } from "react-icons/fa"; // Importing the search icon from react-icons
 import './Header.css'; // Use the regular CSS file instead of CSS module
 
 const Header = () => {
+  const [searchQuery, setSearchQuery] = useState(""); // State to store search query
   const currentUser = useSelector((state: RootState) => state.chat.currentUser);
 
   if (!currentUser) {
     return null; // If no user is logged in, don't render the header
   }
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
 
   return (
     <div className="header">
@@ -20,6 +25,8 @@ const Header = () => {
           type="text"
           placeholder="Search contacts, messages"
           className="searchInput"
+          value={searchQuery} // Bind the input field value to the state
+          onChange={handleSearchChange} // Update the state when input changes
         />
       </div>
 

@@ -9,7 +9,7 @@ body {
   background-color: #f3f4f6;
 }
 
-/* Centering the app */
+
 .app-wrapper {
   display: flex;
   justify-content: center;
@@ -29,14 +29,14 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Sidebar styling */
+
 .sidebar {
   width: 320px;
   border-right: 1px solid #e5e7eb;
   background-color: #f9fafb;
 }
 
-/* Main content section */
+
 .main-content {
   flex-grow: 1;
   display: flex;
@@ -44,10 +44,10 @@ body {
   width: 100%;
 }
 
-/* Header styling */
+
 .header {
-  width: 100%; /* Full width */
-  height: 60px; /* Header height */
+  width: 100%; 
+  height: 60px;
   background-color: #fff;
   display: flex;
   justify-content: space-between;
@@ -56,13 +56,13 @@ body {
   border-bottom: 1px solid #ddd;
 }
 
-/* Content body for chat list and chat window */
+
 .content-body {
   display: flex;
   flex: 1;
 }
 
-/* Chat List */
+
 .message-list {
   width: 320px;
   border-right: 1px solid #e5e7eb;
@@ -70,7 +70,7 @@ body {
   flex-direction: column;
 }
 
-/* Chat window */
+
 .message-box {
   flex: 1;
   background-color: #f9fafb;
@@ -79,25 +79,23 @@ body {
  
 }
 
-/* Media Queries for responsiveness */
 
-/* Tablet view (up to 1024px) */
 @media screen and (max-width: 1024px) {
   .app-container {
-    flex-direction: column; /* Stack elements vertically on smaller screens */
+    flex-direction: column; 
     height: auto;
   }
 
   .sidebar {
-    width: 100%; /* Sidebar should take full width */
-    border-right: none; /* Remove right border */
-    border-bottom: 1px solid #e5e7eb; /* Add bottom border instead */
+    width: 100%;
+    border-right: none; 
+    border-bottom: 1px solid #e5e7eb; 
   }
 
   .message-list {
-    width: 100%; /* Make chat list full width */
+    width: 100%; 
     border-right: none;
-    border-bottom: 1px solid #e5e7eb; /* Add bottom border instead */
+    border-bottom: 1px solid #e5e7eb;
   }
 
   .main-content {
@@ -105,29 +103,28 @@ body {
   }
 
   .header {
-    padding: 0 10px; /* Reduce padding for smaller screens */
+    padding: 0 10px; 
   }
 }
 
-/* Mobile view (up to 768px) */
 @media screen and (max-width: 768px) {
   .sidebar {
-    width: 100%; /* Sidebar should take full width */
+    width: 100%; 
     padding: 10px;
   }
 
   .message-list {
-    width: 100%; /* Chat list takes full width */
+    width: 100%; 
     padding: 5px;
   }
 
   .header {
-    padding: 0 10px; /* Reduce padding */
-    font-size: 14px; /* Adjust font size */
+    padding: 0 10px;
+    font-size: 14px;
   }
 
   .message-box {
-    padding: 12px; /* Less padding on small screens */
+    padding: 12px; 
   }
 
   .app-container {
@@ -135,10 +132,10 @@ body {
   }
 }
 
-/* Mobile view (up to 480px) */
+
 @media screen and (max-width: 480px) {
   .app-wrapper {
-    padding: 10px; /* Add some padding to the app wrapper */
+    padding: 10px; 
   }
 
   .app-container {
@@ -146,13 +143,13 @@ body {
   }
 
   .sidebar {
-    width: 100%; /* Full width sidebar */
+    width: 100%; 
     padding: 10px;
-    margin-bottom: 10px; /* Add margin for spacing */
+    margin-bottom: 10px; 
   }
 
   .message-list {
-    width: 100%; /* Full width chat list */
+    width: 100%; 
     padding: 5px;
   }
 
@@ -161,24 +158,24 @@ body {
   }
 
   .header {
-    flex-direction: column; /* Stack header elements vertically */
-    height: auto; /* Adjust header height */
-    font-size: 12px; /* Reduce font size */
+    flex-direction: column; 
+    height: auto; 
+    font-size: 12px; 
     padding: 10px;
   }
 
   .content-body {
-    flex-direction: column; /* Stack the content vertically */
+    flex-direction: column; 
   }
 
   .message-box {
-    padding: 10px; /* Reduce padding */
+    padding: 10px; 
   }
 
-  /* Make the chat list container smaller on mobile */
+ 
   .message-list {
     width: 100%;
-    max-height: 200px; /* Limit height for mobile */
+    max-height: 200px; 
     overflow-y: scroll;
   }
 }

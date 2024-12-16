@@ -1,28 +1,27 @@
-/* Container for the entire user-select section */
+
 .mainUser-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #6e7fef, #a4c0fd);  /* Gradient background */
-  font-family: 'Roboto', sans-serif;  /* Modern font */
+  background: linear-gradient(135deg, #6e7fef, #a4c0fd); 
+  font-family: 'Roboto', sans-serif;  
 }
 
-/* The container holding the login components */
 .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 30px;
   background: #ffffff;
-  border-radius: 15px;  /* Rounded corners */
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);  /* Soft shadow */
+  border-radius: 15px;  
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); 
   width: 350px;
-  transition: transform 0.3s ease;  /* Smooth transition effect */
+  transition: transform 0.3s ease;  
 }
 
 .login-container:hover {
-  transform: translateY(-10px);  /* Hover effect to raise the container */
+  transform: translateY(-10px);  
 }
 
 .login-heading {
@@ -34,18 +33,18 @@
   letter-spacing: 1px;
 }
 
-/* Avatar image styles */
+
 .login-avatar {
-  width: 120px;  /* Larger avatar */
+  width: 120px; 
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 20px;
-  border: 4px solid #fff;  /* Border around the avatar */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Slight shadow around the avatar */
+  border: 4px solid #fff;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
 }
 
-/* Input field styling */
+
 .username-input {
   padding: 12px 20px;
   margin-bottom: 20px;
@@ -60,12 +59,12 @@
 
 .username-input:focus {
   outline: none;
-  border-color: #6e7fef;  /* Change border color on focus */
+  border-color: #6e7fef;  
   background-color: #fff;
-  box-shadow: 0 0 8px rgba(110, 127, 239, 0.3);  /* Glow effect */
+  box-shadow: 0 0 8px rgba(110, 127, 239, 0.3);  
 }
 
-/* Login button styling */
+
 .login-button {
   padding: 12px 20px;
   width: 100%;
@@ -80,12 +79,12 @@
 }
 
 .login-button:hover {
-  background-color: #5b6edb;  /* Darker shade when hovered */
-  transform: scale(1.05);  /* Slight scaling effect */
+  background-color: #5b6edb;  
+  transform: scale(1.05); 
 }
 
 .login-button:active {
-  transform: scale(1);  /* Reset scaling on click */
+  transform: scale(1);
 }
 
 
@@ -119,7 +118,7 @@
   margin-top: auto;
 }
 
-/* User select section after login */
+
 .mainUser-details1 {
   font-size: 24px;
   font-weight: 600;
@@ -147,7 +146,7 @@
 
 .user-select-item:hover {
   background-color: #f9f9f9;
-  transform: translateX(10px);  /* Slight slide effect */
+  transform: translateX(10px);  
 }
 
 .user-avatar {
@@ -164,14 +163,14 @@
 }
 
 
-/* Header Styling */
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
-  background: linear-gradient(to right, #ffffff 70%, #5B61D2 30%);  /* Gradient from white to #5B61D2 */
-  border-bottom: 1px solid #ddd;
+  background: linear-gradient(to right, #ffffff 70%, #5B61D2 30%);  
+  border-bottom: 5px solid #ffffff;
   width: 100%;
   height: 70px;
 }
@@ -188,7 +187,7 @@
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #fff;  /* Optional: border for avatar to match target UI style */
+  border: 2px solid #fff;  
 }
 
 .profiledetails {
@@ -200,13 +199,13 @@
 .profileName {
   font-size: 18px;
   font-weight: bold;
-  color: white;  /* White text for the name */
+  color: white; 
   margin-bottom: 5px;
 }
 
 .profileStatus {
   font-size: 14px;
-  color: #e0e0e0;  /* Light gray for status text */
+  color: #e0e0e0;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -215,8 +214,7 @@
 .profileStatus .online-dot {
   width: 8px;
   height: 8px;
-  background-color: #28a745;  /* Green for online status */
-  border-radius: 50%;
+  background-color: #28a745;  
   display: inline-block;
 }
 
@@ -295,38 +293,38 @@
   }
   
   .membersName:hover {
-     /* Change the background on hover */
+     
     transform: scale(1.02);
   }
   
   .membersNameSelected {
-    background-color: #6C72D3; /* Selected item background */
+    background-color: #6C72D3; 
   }
   
   .membersNameSelected .userName {
-    color: #fff; /* White color for selected username */
+    color: #fff; 
   }
   
   .membersNameSelected .userStatus {
-    color: #ccc; /* Lighter gray for selected user status */
+    color: #ccc; 
   }
   
   .userName {
-    color: #333; /* Default color for username */
+    color: #333; 
     transition: color 0.3s ease;
   }
   
   .userStatus {
-    color: #777; /* Default color for user status */
+    color: #777; 
     transition: color 0.3s ease;
   }
   
   .userNameSelected {
-    color: #fff; /* White color for selected username */
+    color: #fff; 
   }
   
   .userStatusSelected {
-    color: #ccc; /* Lighter gray for selected status */
+    color: #ccc; 
   }
   
   .userAvatar {
@@ -373,12 +371,12 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: #999;  /* Default offline dot color */
+    background-color: #999; 
     margin-left: 5px;
   }
   
   .userStatus.online .statusDot {
-    background-color: #4CAF50;  /* Green dot for online users */
+    background-color: #4CAF50;  
   }
   
   .userNameSelected,
@@ -432,7 +430,6 @@
     }
   }
   
-  /* Tablet and medium screens */
   @media (min-width: 481px) and (max-width: 768px) {
     .members {
       padding: 15px;
@@ -463,7 +460,6 @@
     }
   }
   
-  /* Large screens (Desktops) */
   @media (min-width: 769px) {
     .membersName {
       padding: 15px;
@@ -487,7 +483,6 @@
     }
   }
 
-  /* General styles for the chat window */
 .messageBox {
     display: flex;
     flex-direction: column;
@@ -498,7 +493,6 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
     position: relative; 
   }
-  /* Ensure the messages list scrolls smoothly */
   .messages::-webkit-scrollbar {
     width: 8px;
   }
@@ -651,7 +645,7 @@
     padding: 10px;
     font-size: 14px;
      margin-left: 20px;
-    background-color: #fff; /* Background color matching the theme */
+    background-color: #fff; 
     position: relative;
     z-index: 1;
   }
@@ -660,14 +654,14 @@
     margin-left: 15px;
     font-size: 20px;
     cursor: pointer;
-    color: #5B61D2; /* Color matching the header icons */
+    color: #5B61D2; 
   }
   
   .sendButton {
     background: none;
     border: none;
     cursor: pointer;
-    margin-left: 10px; /* Increase space between input and button */
+    margin-left: 10px; 
     width: 55px;
     height: 55px;
     display: flex;
@@ -680,113 +674,6 @@
     color: #5B61D2;
   }
   
-  /* Header Styling */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 30px;
-    background: linear-gradient(to right, #ffffff 70%, rgb(130, 136, 255) 30%);  /* Gradient from white to #5B61D2 */
-    border-bottom: 1px solid #fff;
-    width: 100%;
-    height: 70px;
-  }
-  
-  
-  .profileBox {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .profileAvatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #fff;  /* Optional: border for avatar to match target UI style */
-  }
-  
-  .profiledetails {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-  
-  .profileName {
-    font-size: 18px;
-    font-weight: bold;
-    color: white;  /* White text for the name */
-    margin-bottom: 5px;
-  }
-  
-  .profileStatus {
-    font-size: 14px;
-    color: #e0e0e0;  /* Light gray for status text */
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .profileStatus .online-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #28a745;  /* Green for online status */
-    border-radius: 50%;
-    display: inline-block;
-  }
-  
-  .searchBox {
-    position: relative;
-    flex: 1;
-    max-width: 800px; 
-    width: 100%;
-  }
-  
-  .searchInput {
-    padding: 10px 15px;
-    border-radius: 20px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-    outline: none;
-    padding-left: 35px;  
-    background-color: #f5f5f5;  
-    width: 290px;  
-    max-width: 100%;  
-  }
-  
-  
-  .searchInput:focus {
-    border-color: #4C53A5;  
-  }
-  
-  .searchIcon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #aaa;
-  }
-  
-  @media (max-width: 600px) {
-    .header {
-      padding: 10px;
-      height: auto;
-    }
-  
-    .searchBox {
-      width: 100px;
-    }
-  
-    .profileBox {
-      gap: 15px;
-      margin-right: 10px;
-    }
-  
-    .searchInput {
-      font-size: 12px;
-    }
-  }
 
 
 

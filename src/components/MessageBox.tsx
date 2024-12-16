@@ -67,7 +67,7 @@ const MessageBox = () => { // Renamed from ChatWindow to MessageBox
   );
 
   return (
-    <div className="messageBox"> {/* Renamed class from chatWindow to messageBox */}
+    <div className="chatWindow"> {/* No change to CSS class name */}
       <div className="chatHeader">
         <div className="userInfo">
           <img src={selectedUser.avatar} alt={selectedUser.name} className="userAvatar" />

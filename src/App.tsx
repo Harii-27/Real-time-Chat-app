@@ -6,8 +6,8 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header"; 
 import React from "react";
 import Login from "./components/Login";
-import MessageBox from "./components/Message";
-import Members from "./components/Name";
+import MessageBox from "./components/MessageBox";
+import Members from "./components/Members";
 
 function App() {
   // Get current user from Redux state

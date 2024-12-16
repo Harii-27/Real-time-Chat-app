@@ -9,7 +9,7 @@ import './components.css';
 const mainUser: User = {
   id: "1",
   name: "Harii",
-  avatar: defaultAvatar,  
+  avatar: defaultAvatar,
   online: true,
 };
 

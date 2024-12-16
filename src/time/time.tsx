@@ -4,12 +4,11 @@
  * @returns The formatted time string.
  */
 export const getTimeString = (timestamp: number): string => {
-    const date = new Date(timestamp);
-    const formattedTime = date.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    });
-    return formattedTime;
-  };
-  
+  const date = new Date(timestamp);
+  const formattedTime = date.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+  return formattedTime;
+};

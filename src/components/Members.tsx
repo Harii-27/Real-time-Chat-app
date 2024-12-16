@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  selectActiveUser } from '../Store/Slice';
+import { selectActiveUser } from '../Store/Slice';
 import { AppState } from '../Store/main';
 import { User } from '../types';
 import './components.css';
@@ -45,7 +45,7 @@ const Members = () => {
   ], [users, currentUser]);
 
   const handleUserClick = (user: User) => {
-    dispatch( selectActiveUser(user));
+    dispatch(selectActiveUser(user));
   };
 
   return (

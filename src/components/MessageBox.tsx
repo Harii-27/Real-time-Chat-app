@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { BsArrowRightSquareFill } from "react-icons/bs";
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../Store/main';
-import {  reorderUsers,  selectActiveUser } from '../Store/Slice'; // Added  selectActiveUser
+import { reorderUsers, selectActiveUser } from '../Store/Slice'; // Added  selectActiveUser
 import { Message, User } from '../types';
 import { FaPlus, FaRegFaceSmile } from "react-icons/fa6";
 import { getTimeString } from '../time/time';
@@ -23,7 +23,7 @@ const MessageBox = () => { // Renamed from messageBox to MessageBox
     if (!selectedUser) {
       const defaultUser = users.find(user => user.name === "CodeScribo");
       if (defaultUser) {
-        dispatch( selectActiveUser(defaultUser));
+        dispatch(selectActiveUser(defaultUser));
       }
     }
   }, [dispatch, selectedUser, users]);
@@ -42,15 +42,15 @@ const MessageBox = () => { // Renamed from messageBox to MessageBox
       replaceMessages((prev) => [...prev, newMsg]);
       setInputMessage('');
 
-    
+
       const newOrder = [selectedUser.id, ...usersOrder.filter((id) => id !== selectedUser.id)];
 
-      dispatch( reorderUsers(newOrder));
+      dispatch(reorderUsers(newOrder));
     }
   };
 
   if (!selectedUser) {
-    return null; 
+    return null;
   }
 
   const filteredMessages = messages.filter(
@@ -80,9 +80,8 @@ const MessageBox = () => { // Renamed from messageBox to MessageBox
         {filteredMessages.map((msg) => (
           <div
             key={msg.id}
-            className={`message ${
-              msg.senderId === currentUser?.id ? 'messageOutgoing' : 'messageIncoming'
-            }`}
+            className={`message ${msg.senderId === currentUser?.id ? 'messageOutgoing' : 'messageIncoming'
+              }`}
           >
             <div className="context">
               <img

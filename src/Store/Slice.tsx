@@ -24,7 +24,7 @@ const slice = createSlice({
     updateCurrentUser: (state, action: PayloadAction<User>) => {
       state.currentUser = action.payload;
     },
-     selectActiveUser: (state, action: PayloadAction<User>) => {
+    selectActiveUser: (state, action: PayloadAction<User>) => {
       state.selectedUser = action.payload;
     },
     updateUserList: (state, action: PayloadAction<User[]>) => {
@@ -37,7 +37,7 @@ const slice = createSlice({
       state.messages = action.payload;
     },
     // Reducer to update the order of users
-     reorderUsers: (state, action: PayloadAction<string[]>) => {
+    reorderUsers: (state, action: PayloadAction<string[]>) => {
       state.usersOrder = action.payload;
     },
   },
@@ -45,11 +45,11 @@ const slice = createSlice({
 
 export const {
   updateCurrentUser,
-   selectActiveUser,
+  selectActiveUser,
   updateUserList,
   appendMessage,
   replaceMessages,
-   reorderUsers,
+  reorderUsers,
 } = slice.actions;
 
 export default slice.reducer;

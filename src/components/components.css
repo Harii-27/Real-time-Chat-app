@@ -1,11 +1,10 @@
-
 .mainUser-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #6e7fef, #a4c0fd); 
-  font-family: 'Roboto', sans-serif;  
+  background: linear-gradient(135deg, #6e7fef, #a4c0fd);
+  font-family: 'Roboto', sans-serif;
 }
 
 .login-container {
@@ -14,14 +13,14 @@
   align-items: center;
   padding: 30px;
   background: #ffffff;
-  border-radius: 15px;  
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); 
+  border-radius: 15px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
   width: 350px;
-  transition: transform 0.3s ease;  
+  transition: transform 0.3s ease;
 }
 
 .login-container:hover {
-  transform: translateY(-10px);  
+  transform: translateY(-10px);
 }
 
 .login-heading {
@@ -35,13 +34,13 @@
 
 
 .login-avatar {
-  width: 120px; 
+  width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 20px;
-  border: 4px solid #fff;  
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+  border: 4px solid #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -59,9 +58,9 @@
 
 .username-input:focus {
   outline: none;
-  border-color: #6e7fef;  
+  border-color: #6e7fef;
   background-color: #fff;
-  box-shadow: 0 0 8px rgba(110, 127, 239, 0.3);  
+  box-shadow: 0 0 8px rgba(110, 127, 239, 0.3);
 }
 
 
@@ -79,8 +78,8 @@
 }
 
 .login-button:hover {
-  background-color: #5b6edb;  
-  transform: scale(1.05); 
+  background-color: #5b6edb;
+  transform: scale(1.05);
 }
 
 .login-button:active {
@@ -146,7 +145,7 @@
 
 .user-select-item:hover {
   background-color: #f9f9f9;
-  transform: translateX(10px);  
+  transform: translateX(10px);
 }
 
 .user-avatar {
@@ -169,7 +168,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
-  background: linear-gradient(to right, #ffffff 70%, #5B61D2 30%);  
+  background: linear-gradient(to right, #ffffff 70%, #5B61D2 30%);
   border-bottom: 5px solid #ffffff;
   width: 100%;
   height: 70px;
@@ -187,7 +186,7 @@
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #fff;  
+  border: 2px solid #fff;
 }
 
 .profiledetails {
@@ -199,7 +198,7 @@
 .profileName {
   font-size: 18px;
   font-weight: bold;
-  color: white; 
+  color: white;
   margin-bottom: 5px;
 }
 
@@ -214,14 +213,14 @@
 .profileStatus .online-dot {
   width: 8px;
   height: 8px;
-  background-color: #28a745;  
+  background-color: #28a745;
   display: inline-block;
 }
 
 .searchBox {
   position: relative;
   flex: 1;
-  max-width: 800px; 
+  max-width: 800px;
   width: 100%;
 }
 
@@ -231,15 +230,15 @@
   border: 1px solid #ddd;
   font-size: 14px;
   outline: none;
-  padding-left: 35px;  
-  background-color: #f5f5f5;  
-  width: 290px;  
-  max-width: 100%;  
+  padding-left: 35px;
+  background-color: #f5f5f5;
+  width: 290px;
+  max-width: 100%;
 }
 
 
 .searchInput:focus {
-  border-color: #4C53A5;  
+  border-color: #4C53A5;
 }
 
 .searchIcon {
@@ -272,413 +271,407 @@
 
 
 .members {
-  background-color:#b6b6e2;
-    height: 100%;
-  
-    margin: 0;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
+  background-color: #b6b6e2;
+  height: 100%;
+
+  margin: 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.members {
+  padding: 10px;
+}
+
+.membersName {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.membersName:hover {
+
+  transform: scale(1.02);
+}
+
+.membersNameSelected {
+  background-color: #6C72D3;
+}
+
+.membersNameSelected .userName {
+  color: #fff;
+}
+
+.membersNameSelected .userStatus {
+  color: #ccc;
+}
+
+.userName {
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.userStatus {
+  color: #777;
+  transition: color 0.3s ease;
+}
+
+.userNameSelected {
+  color: #fff;
+}
+
+.userStatusSelected {
+  color: #ccc;
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+
+.userAvatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.userName {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.userStatus {
+  font-size: 0.9rem;
+  color: #999;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.userStatus .statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #999;
+  margin-left: 5px;
+}
+
+.userStatus.online .statusDot {
+  background-color: #4CAF50;
+}
+
+.userNameSelected,
+.userStatusSelected {
+  color: white;
+}
+
+.userStatusSelected {
+  font-weight: 500;
+  color: #D1D3F3;
+}
+
+.notificationIcon {
+  font-size: 16px;
+  color: red;
+  margin-left: 8px;
+}
+
+/* Mobile Screen */
+@media (max-width: 480px) {
   .members {
     padding: 10px;
   }
-  
+
   .membersName {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s;
-    border-radius: 8px;
-    margin-bottom: 12px;
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .membersName:hover {
-     
-    transform: scale(1.02);
-  }
-  
-  .membersNameSelected {
-    background-color: #6C72D3; 
-  }
-  
-  .membersNameSelected .userName {
-    color: #fff; 
-  }
-  
-  .membersNameSelected .userStatus {
-    color: #ccc; 
-  }
-  
-  .userName {
-    color: #333; 
-    transition: color 0.3s ease;
-  }
-  
-  .userStatus {
-    color: #777; 
-    transition: color 0.3s ease;
-  }
-  
-  .userNameSelected {
-    color: #fff; 
-  }
-  
-  .userStatusSelected {
-    color: #ccc; 
-  }
-  
+
   .userAvatar {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  
-  .userAvatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 15px;
-  }
-  
-  .userInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 20px;
-  }
-  
-  .userName {
-    font-weight: 600;
-    color: #333;
-    font-size: 1.1rem;
-    margin: 0;
-    display: flex;
-    align-items: center;
-  }
-  
-  .userStatus {
-    font-size: 0.9rem;
-    color: #999;
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .userStatus .statusDot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #999; 
-    margin-left: 5px;
-  }
-  
-  .userStatus.online .statusDot {
-    background-color: #4CAF50;  
-  }
-  
-  .userNameSelected,
-  .userStatusSelected {
-    color: white;
-  }
-  
-  .userStatusSelected {
-    font-weight: 500;
-    color: #D1D3F3;
-  }
-  
-  .notificationIcon {
-    font-size: 16px;
-    color: red;
-    margin-left: 8px;
-  }
-  
-  /* Mobile Screen */
-  @media (max-width: 480px) {
-    .members {
-      padding: 10px;
-    }
-  
-    .membersName {
-      padding: 10px;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .userAvatar {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 8px;
-    }
-  
-    .userInfo {
-      margin-left: 0;
-    }
-  
-    .userName {
-      font-size: 1rem;
-    }
-  
-    .userStatus {
-      font-size: 0.8rem;
-    }
-  
-    .membersNameSelected {
-      background-color: #6C72D3;
-    }
-  }
-  
-  @media (min-width: 481px) and (max-width: 768px) {
-    .members {
-      padding: 15px;
-    }
-  
-    .membersName {
-      padding: 12px;
-      flex-direction: row;
-      align-items: center;
-    }
-  
-    .userAvatar {
-      width: 45px;
-      height: 45px;
-      margin-right: 12px;
-    }
-  
-    .userName {
-      font-size: 1.2rem;
-    }
-  
-    .userStatus {
-      font-size: 1rem;
-    }
-  
-    .membersNameSelected {
-      background-color: #6C72D3;
-    }
-  }
-  
-  @media (min-width: 769px) {
-    .membersName {
-      padding: 15px;
-      flex-direction: row;
-      align-items: center;
-    }
-  
-    .userInfo {
-      flex-direction: row;
-      align-items: center;
-    }
-  
-    .userName {
-      font-size: 1.3rem;
-      margin-right: 10px;
-    }
-  
-    .userStatus {
-      font-size: 1rem;
-      margin-top: 0;
-    }
+    margin-bottom: 8px;
   }
 
-.messageBox {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    
-    background-color: #FFFFFF; 
-    
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
-    position: relative; 
-  }
-  .messages::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .messages::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 10px;
-  }
-  
-  .messages::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-  }
-  
-  
-  .messageInput:focus {
-    outline: none; 
-   
-  }
-  
-  .messages {
-    max-height: calc(100vh - 180px); 
-    overflow-y: auto;
-    padding-right: 10px;
-  }
-  .messageHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-top: 40px;
-    margin-right: 25px;
-    margin-left: 25px;
-    border-bottom: 1px solid;
-    border-image: linear-gradient(to right, #898787, #808080) 1;
-    padding-bottom: 10px;
-  }
-  
   .userInfo {
-    display: flex;
+    margin-left: 0;
+  }
+
+  .userName {
+    font-size: 1rem;
+  }
+
+  .userStatus {
+    font-size: 0.8rem;
+  }
+
+  .membersNameSelected {
+    background-color: #6C72D3;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .members {
+    padding: 15px;
+  }
+
+  .membersName {
+    padding: 12px;
+    flex-direction: row;
     align-items: center;
   }
-  
+
   .userAvatar {
     width: 45px;
     height: 45px;
-    border-radius: 50%;
-    margin-right: 15px;
-    object-fit: cover;
+    margin-right: 12px;
   }
-  
+
   .userName {
-    font-weight: 600;
-    color: #333;
     font-size: 1.2rem;
   }
-  
+
   .userStatus {
-    font-size: 14px;
-    color: #777;
+    font-size: 1rem;
   }
-  
-  .messageHeaderIcons {
-    display: flex;
-    gap: 25px;
-    color: #5B61D2; 
-    margin-left: 50px;
+
+  .membersNameSelected {
+    background-color: #6C72D3;
   }
-  
-  .messages {
-    flex-grow: 1;
-    overflow-y: auto;
-    margin-bottom: 15px;
-    padding-right: 10px;
-    padding-left: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .message {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  
-  .messageOutgoing {
-    justify-content: flex-end;
-  }
-  
-  .messageIncoming {
-    justify-content: flex-start;
-  }
-  
-  .context {
-    display: flex;
+}
+
+@media (min-width: 769px) {
+  .membersName {
+    padding: 15px;
+    flex-direction: row;
     align-items: center;
   }
-  
-  .messageAvatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin-right: 12px;
-    object-fit: cover;
-  }
-  
-  .messageContentWrapper {
-    background-color: #F1F4FF; 
-    padding: 12px 18px;
-    border-radius: 15px;
-    max-width: 75%;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-  
-  .messageContent {
-    margin: 0;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  .messageTime {
-    font-size: 11px;
-    color: #999;
-    margin-top: 6px;
-  }
-  
-  .messageinput {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 40px;
-    margin-right: 25px;
-    margin-left: 25px;
-    border-top: 1px solid;
-    border-image: linear-gradient(to right, #898787, #808080) 1;
-    
-    padding-top: 10px;
-  }
-  
-  .messageForm {
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .messageInput {
-    flex-grow: 1;
-    border: none;
-    outline: none;
-    padding: 10px;
-    font-size: 14px;
-     margin-left: 20px;
-    background-color: #fff; 
-    position: relative;
-    z-index: 1;
-  }
-  
-  .emojiIcon, .plusIcon {
-    margin-left: 15px;
-    font-size: 20px;
-    cursor: pointer;
-    color: #5B61D2; 
-  }
-  
-  .sendButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px; 
-    width: 55px;
-    height: 55px;
-    display: flex;
-    justify-content: center;
+
+  .userInfo {
+    flex-direction: row;
     align-items: center;
   }
-  
-  .sendIcon {
-    font-size: 40px;
-    color: #5B61D2;
+
+  .userName {
+    font-size: 1.3rem;
+    margin-right: 10px;
   }
-  
+
+  .userStatus {
+    font-size: 1rem;
+    margin-top: 0;
+  }
+}
+
+.messageBox {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  background-color: #FFFFFF;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
 
 
+.messageInput:focus {
+  outline: none;
 
-  
-  
+}
 
-  
-  
+.messages {
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.messageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-right: 25px;
+  margin-left: 25px;
+  border-bottom: 1px solid;
+  border-image: linear-gradient(to right, #898787, #808080) 1;
+  padding-bottom: 10px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+}
+
+.userAvatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.userName {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.userStatus {
+  font-size: 14px;
+  color: #777;
+}
+
+.messageHeaderIcons {
+  display: flex;
+  gap: 25px;
+  color: #5B61D2;
+  margin-left: 50px;
+}
+
+.messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.messageOutgoing {
+  justify-content: flex-end;
+}
+
+.messageIncoming {
+  justify-content: flex-start;
+}
+
+.context {
+  display: flex;
+  align-items: center;
+}
+
+.messageAvatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 12px;
+  object-fit: cover;
+}
+
+.messageContentWrapper {
+  background-color: #F1F4FF;
+  padding: 12px 18px;
+  border-radius: 15px;
+  max-width: 75%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.messageContent {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.messageTime {
+  font-size: 11px;
+  color: #999;
+  margin-top: 6px;
+}
+
+.messageinput {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  margin-right: 25px;
+  margin-left: 25px;
+  border-top: 1px solid;
+  border-image: linear-gradient(to right, #898787, #808080) 1;
+
+  padding-top: 10px;
+}
+
+.messageForm {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.messageInput {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 14px;
+  margin-left: 20px;
+  background-color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.emojiIcon,
+.plusIcon {
+  margin-left: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #5B61D2;
+}
+
+.sendButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sendIcon {
+  font-size: 40px;
+  color: #5B61D2;
+}

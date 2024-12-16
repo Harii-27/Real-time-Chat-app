@@ -110,7 +110,7 @@
   color: #ffffff;
 }
 
-.iconSvg {
+.sidebaricons {
   width: 24px;
   height: 24px;
 }
@@ -488,7 +488,7 @@
   }
 
   /* General styles for the chat window */
-.chatWindow {
+.messageBox {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -499,16 +499,16 @@
     position: relative; 
   }
   /* Ensure the messages list scrolls smoothly */
-  .chatMessages::-webkit-scrollbar {
+  .messages::-webkit-scrollbar {
     width: 8px;
   }
   
-  .chatMessages::-webkit-scrollbar-thumb {
+  .messages::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 10px;
   }
   
-  .chatMessages::-webkit-scrollbar-thumb:hover {
+  .messages::-webkit-scrollbar-thumb:hover {
     background-color: #555;
   }
   
@@ -518,12 +518,12 @@
    
   }
   
-  .chatMessages {
+  .messages {
     max-height: calc(100vh - 180px); 
     overflow-y: auto;
     padding-right: 10px;
   }
-  .chatHeader {
+  .messageHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -560,14 +560,14 @@
     color: #777;
   }
   
-  .chatHeaderIcons {
+  .messageHeaderIcons {
     display: flex;
     gap: 25px;
     color: #5B61D2; 
     margin-left: 50px;
   }
   
-  .chatMessages {
+  .messages {
     flex-grow: 1;
     overflow-y: auto;
     margin-bottom: 15px;
@@ -577,21 +577,21 @@
     flex-direction: column;
   }
   
-  .chatMessage {
+  .message {
     display: flex;
     align-items: center;
     margin-bottom: 12px;
   }
   
-  .chatMessageOutgoing {
+  .messageOutgoing {
     justify-content: flex-end;
   }
   
-  .chatMessageIncoming {
+  .messageIncoming {
     justify-content: flex-start;
   }
   
-  .messageWrapper {
+  .context {
     display: flex;
     align-items: center;
   }
@@ -625,7 +625,7 @@
     margin-top: 6px;
   }
   
-  .chatInput {
+  .messageinput {
     display: flex;
     align-items: center;
     margin-top: 20px;

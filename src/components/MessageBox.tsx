@@ -2,35 +2,28 @@ import React, { useState, useEffect, useRef } from 'react';
 import { BsArrowRightSquareFill } from "react-icons/bs";
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../Store/main';
-import { setUsersOrder, setSelectedUser } from '../Store/Slice'; // Added setSelectedUser
+import {  reorderUsers,  selectActiveUser } from '../Store/Slice'; // Added  selectActiveUser
 import { Message, User } from '../types';
 import { FaPlus, FaRegFaceSmile } from "react-icons/fa6";
 import { getTimeString } from '../time/time';
 import { FaPhone, FaVideo, FaFileAlt } from 'react-icons/fa';
 import './components.css';
 
-const MessageBox = () => { // Renamed from ChatWindow to MessageBox
+const MessageBox = () => { // Renamed from messageBox to MessageBox
   const [inputMessage, setInputMessage] = useState('');
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, replaceMessages] = useState<Message[]>([]);
   const messageEndRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const { selectedUser, currentUser, usersOrder, users } = useSelector(
     (state: RootState) => state.chat
   );
 
-  const scrollToEnd = () => {
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  useEffect(() => {
-    scrollToEnd();
-  }, [messages]);
 
   useEffect(() => {
     if (!selectedUser) {
       const defaultUser = users.find(user => user.name === "CodeScribo");
       if (defaultUser) {
-        dispatch(setSelectedUser(defaultUser));
+        dispatch( selectActiveUser(defaultUser));
       }
     }
   }, [dispatch, selectedUser, users]);
@@ -46,13 +39,13 @@ const MessageBox = () => { // Renamed from ChatWindow to MessageBox
         timestamp: Date.now(),
       };
 
-      setMessages((prev) => [...prev, newMsg]);
+      replaceMessages((prev) => [...prev, newMsg]);
       setInputMessage('');
 
       // Move the selected user to the top of the chat list
       const newOrder = [selectedUser.id, ...usersOrder.filter((id) => id !== selectedUser.id)];
 
-      dispatch(setUsersOrder(newOrder));
+      dispatch( reorderUsers(newOrder));
     }
   };
 
@@ -67,8 +60,8 @@ const MessageBox = () => { // Renamed from ChatWindow to MessageBox
   );
 
   return (
-    <div className="chatWindow"> {/* No change to CSS class name */}
-      <div className="chatHeader">
+    <div className="messageBox"> {/* No change to CSS class name */}
+      <div className="messageHeader">
         <div className="userInfo">
           <img src={selectedUser.avatar} alt={selectedUser.name} className="userAvatar" />
           <div>
@@ -76,22 +69,22 @@ const MessageBox = () => { // Renamed from ChatWindow to MessageBox
             <p className="userStatus">{selectedUser.online ? 'Online' : 'Offline'}</p>
           </div>
         </div>
-        <div className="chatHeaderIcons">
+        <div className="messageHeaderIcons">
           <FaVideo className="chatIcon" title="Video Call" />
           <FaPhone className="chatIcon" title="Voice Call" />
           <FaFileAlt className="chatIcon" title="Share" />
         </div>
       </div>
 
-      <div className="chatMessages">
+      <div className="messages">
         {filteredMessages.map((msg) => (
           <div
             key={msg.id}
-            className={`chatMessage ${
-              msg.senderId === currentUser?.id ? 'chatMessageOutgoing' : 'chatMessageIncoming'
+            className={`message ${
+              msg.senderId === currentUser?.id ? 'messageOutgoing' : 'messageIncoming'
             }`}
           >
-            <div className="messageWrapper">
+            <div className="context">
               <img
                 src={
                   msg.senderId === currentUser?.id
@@ -111,7 +104,7 @@ const MessageBox = () => { // Renamed from ChatWindow to MessageBox
         <div ref={messageEndRef} />
       </div>
 
-      <div className="chatInput">
+      <div className="messageinput">
         <form onSubmit={handleSendMessage} className="messageForm">
           <input
             type="text"

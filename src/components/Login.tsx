@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../Store/Slice";
+import { updateCurrentUser } from "../Store/Slice";
 import { User } from "../types";
 import defaultAvatar from '../img/virat.png'; // Import the default avatar
 import './components.css';
@@ -21,7 +21,7 @@ export default function Login() {
   // Handle login functionality
   const handleLogin = () => {
     if (username.trim()) {
-      dispatch(setCurrentUser({ ...mainUser, name: username }));
+      dispatch(updateCurrentUser({ ...mainUser, name: username }));
       setIsLoggedIn(true);
     }
   };
@@ -51,7 +51,7 @@ export default function Login() {
           <h1 className="mainUser-details1">Welcome, {username}</h1>
           <div className="user-select-list">
             <div
-              onClick={() => dispatch(setCurrentUser(mainUser))}
+              onClick={() => dispatch(updateCurrentUser(mainUser))}
               className="user-select-item"
             >
               <img src={mainUser.avatar} alt={mainUser.name} className="user-avatar" />

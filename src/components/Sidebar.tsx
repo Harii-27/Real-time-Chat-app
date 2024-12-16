@@ -25,7 +25,7 @@ const Sidebar = () => {
     color: '#ffffff',
   };
 
-  const iconSvgStyle: React.CSSProperties = {
+  const sidebariconsStyle: React.CSSProperties = {
     width: '24px',
     height: '24px',
   };
@@ -37,22 +37,22 @@ const Sidebar = () => {
   return (
     <div style={sidebarStyle}>
       <div style={iconStyle}>
-        <FaPowerOff style={iconSvgStyle} className="iconSvg" />
+        <FaPowerOff style={sidebariconsStyle} className="sidebaricons" />
       </div>
       <div style={iconStyle}>
-        <BiMessageSquareMinus style={iconSvgStyle} className="iconSvg" />
+        <BiMessageSquareMinus style={sidebariconsStyle} className="sidebaricons" />
       </div>
       <div style={iconStyle}>
-        <FaUser style={iconSvgStyle} className="iconSvg" />
+        <FaUser style={sidebariconsStyle} className="sidebaricons" />
       </div>
       <div style={iconStyle}>
-        <FaTh style={iconSvgStyle} className="iconSvg" />
+        <FaTh style={sidebariconsStyle} className="sidebaricons" />
       </div>
       <div style={{ ...iconStyle, ...iconBottomStyle }}>
-        <FaCog style={iconSvgStyle} className="iconSvg" />
+        <FaCog style={sidebariconsStyle} className="sidebaricons" />
       </div>
       <div style={iconStyle}>
-        <HiMenuAlt2 style={iconSvgStyle} className="iconSvg" />
+        <HiMenuAlt2 style={sidebariconsStyle} className="sidebaricons" />
       </div>
     </div>
   );

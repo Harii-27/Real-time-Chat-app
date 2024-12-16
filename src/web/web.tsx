@@ -1,6 +1,6 @@
 import { io, Socket } from "socket.io-client";
 import { store } from "../Store/main";
-import { addMessage, setUsers } from "../Store/Slice";
+import { appendMessage, updateUserList } from "../Store/Slice";
 import { Message, User } from "../types";
 
 class ChatService {
@@ -16,12 +16,12 @@ class ChatService {
 
       // Handle the 'users' event, which updates the list of users
       this.socket.on("users", (users: User[]) => {
-        store.dispatch(setUsers(users));
+        store.dispatch(updateUserList(users));
       });
 
       // Handle incoming messages
       this.socket.on("message", (message: Message) => {
-        store.dispatch(addMessage(message));
+        store.dispatch(appendMessage(message));
       });
 
       // Handle connection established
@@ -98,7 +98,7 @@ class ChatService {
         timestamp,
       };
 
-      store.dispatch(addMessage(messageWithTimestamp));
+      store.dispatch(appendMessage(messageWithTimestamp));
     }
 
     // Disconnect the user and handle cleanup

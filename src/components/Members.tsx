@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectActiveUser } from '../Store/Slice';
 import { AppState } from '../Store/main';
@@ -10,6 +10,7 @@ const Members = () => {
   const dispatch = useDispatch();
   const { users, currentUser, selectedUser } = useSelector((state: AppState) => state.message);
 
+  // Define default users, including Codescribo
   const defaultUsers: User[] = React.useMemo(() => [
     {
       id: '1',
@@ -37,21 +38,33 @@ const Members = () => {
     },
   ], []);
 
-  // Filter out the current user and merge with predefined users
+  // Combine default users and current users, ensuring the current user is not displayed
   const filteredUsers = React.useMemo(() => [
     ...defaultUsers,
     ...users.filter(user => user.id !== currentUser?.id)
   ], [users, currentUser]);
 
+  // Handle user selection and dispatch the action to select them as the active user
   const handleUserClick = (user: User) => {
     dispatch(selectActiveUser(user));
   };
+
+  // Automatically select "Codescribo" if no user is selected (on page load)
+  useEffect(() => {
+    if (!selectedUser) {
+      const codescriboUser = defaultUsers.find(user => user.name === 'Codescribo');
+      if (codescriboUser) {
+        dispatch(selectActiveUser(codescriboUser));
+      }
+    }
+  }, [dispatch, selectedUser, defaultUsers]);
 
   return (
     <div className="members">
       {filteredUsers.map((user) => {
         const isSelected = selectedUser?.id === user.id;
         const userStatus = user.online ? 'Online' : 'Offline';
+
         return (
           <div
             key={user.id}

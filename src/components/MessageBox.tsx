@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { BsArrowRightSquareFill } from "react-icons/bs";
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../Store/main';
-import { reorderUsers, selectActiveUser } from '../Store/Slice'; // Added  selectActiveUser
+import { reorderUsers, selectActiveUser } from '../Store/Slice'; 
 import { Message, User } from '../types';
 import { FaPlus, FaRegFaceSmile } from "react-icons/fa6";
 import { getTimeString } from '../time/time';
 import { FaPhone, FaVideo, FaFileAlt } from 'react-icons/fa';
 import './components.css';
 
-const MessageBox = () => { // Renamed from messageBox to MessageBox
+const MessageBox = () => { 
   const [inputMessage, setInputMessage] = useState('');
   const [messages, replaceMessages] = useState<Message[]>([]);
   const messageEndRef = useRef<HTMLDivElement>(null);
@@ -60,7 +60,7 @@ const MessageBox = () => { // Renamed from messageBox to MessageBox
   );
 
   return (
-    <div className="messageBox"> {/* No change to CSS class name */}
+    <div className="messageBox"> 
       <div className="messageHeader">
         <div className="userInfo">
           <img src={selectedUser.avatar} alt={selectedUser.name} className="userAvatar" />

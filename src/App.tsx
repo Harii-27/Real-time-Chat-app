@@ -21,23 +21,15 @@ function App() {
   }
 
   return (
-    <div className="app-wrapper">
-      <div className="app-container">
-
+    <div className="app-details">
+      <div className="app-content">
         <Sidebar />
-
-
-        <div className="main-content">
-
+        <div className="app-main">
           <Header />
-
-          <div className="content-body">
-
+          <div className="app-body">
             <div className="message-list">
               <Members />
             </div>
-
-
             <div className="message-box">
               <MessageBox />
             </div>

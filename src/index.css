@@ -10,7 +10,7 @@ body {
 }
 
 
-.app-wrapper {
+.app-details {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +18,7 @@ body {
   background-color: rgb(102, 107, 201);
 }
 
-.app-container {
+.app-content {
   display: flex;
   width: 100%;
   max-width: 1200px;
@@ -37,7 +37,7 @@ body {
 }
 
 
-.main-content {
+.app-main {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -57,7 +57,7 @@ body {
 }
 
 
-.content-body {
+.app-body {
   display: flex;
   flex: 1;
 }
@@ -81,7 +81,7 @@ body {
 
 
 @media screen and (max-width: 1024px) {
-  .app-container {
+  .app-content {
     flex-direction: column;
     height: auto;
   }
@@ -98,7 +98,7 @@ body {
     border-bottom: 1px solid #e5e7eb;
   }
 
-  .main-content {
+  .app-main {
     flex-direction: column;
   }
 
@@ -127,18 +127,18 @@ body {
     padding: 12px;
   }
 
-  .app-container {
+  .app-content {
     height: auto;
   }
 }
 
 
 @media screen and (max-width: 480px) {
-  .app-wrapper {
+  .app-details {
     padding: 10px;
   }
 
-  .app-container {
+  .app-content {
     height: auto;
   }
 
@@ -153,7 +153,7 @@ body {
     padding: 5px;
   }
 
-  .main-content {
+  .app-main {
     padding: 10px;
   }
 
@@ -164,7 +164,7 @@ body {
     padding: 10px;
   }
 
-  .content-body {
+  .app-body {
     flex-direction: column;
   }
 

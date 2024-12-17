@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateCurrentUser } from "../Store/Slice";
 import { User } from "../types";
-import defaultAvatar from '../img/virat.png'; // Import the default avatar
+import defaultAvatar from '../img/virat.png';
 import './components.css';
 
 
@@ -15,10 +15,9 @@ const mainUser: User = {
 
 export default function Login() {
   const dispatch = useDispatch();
-  const [username, setUsername] = useState(mainUser.name); // Pre-fill with the dummy user name
+  const [username, setUsername] = useState(mainUser.name); 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Handle login functionality
   const handleLogin = () => {
     if (username.trim()) {
       dispatch(updateCurrentUser({ ...mainUser, name: username }));
@@ -32,13 +31,13 @@ export default function Login() {
         <div className="login-container">
           <h1 className="login-heading">Login</h1>
 
-          {/* Display avatar */}
+          
           <img src={mainUser.avatar} alt={mainUser.name} className="login-avatar" />
 
           <input
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)} // Handle input changes
+            onChange={(e) => setUsername(e.target.value)} 
             placeholder="Enter your username"
             className="username-input"
           />

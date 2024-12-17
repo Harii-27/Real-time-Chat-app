@@ -10,7 +10,6 @@ const Members = () => {
   const dispatch = useDispatch();
   const { users, currentUser, selectedUser } = useSelector((state: AppState) => state.message);
 
-  // Define multiple users like Codescribo
   const defaultUsers: User[] = React.useMemo(() => [
     {
       id: '1',

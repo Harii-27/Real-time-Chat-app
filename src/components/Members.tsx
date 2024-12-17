@@ -10,7 +10,7 @@ const Members = () => {
   const dispatch = useDispatch();
   const { users, currentUser, selectedUser } = useSelector((state: AppState) => state.message);
 
-  // Define default users, including Codescribo
+ 
   const defaultUsers: User[] = React.useMemo(() => [
     {
       id: '1',
@@ -38,13 +38,13 @@ const Members = () => {
     },
   ], []);
 
-  // Combine default users and current users, ensuring the current user is not displayed
+ 
   const filteredUsers = React.useMemo(() => [
     ...defaultUsers,
     ...users.filter(user => user.id !== currentUser?.id)
   ], [users, currentUser]);
 
-  // Handle user selection and dispatch the action to select them as the active user
+ 
   const handleUserClick = (user: User) => {
     dispatch(selectActiveUser(user));
   };
